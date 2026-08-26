@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS MODS 4K | Ultimate Gaming Hub</title>
+    <title>ALONEMODDER 4K | Next-Gen Cyber Hub</title>
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #030712;
-            --card-bg: rgba(15, 23, 42, 0.65);
+            --bg-color: #02040a;
+            --card-bg: rgba(10, 15, 30, 0.45);
             --primary: #00f0ff;
             --secondary: #7000ff;
             --accent: #ff0055;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --neon-glow: 0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.2);
-            --pink-glow: 0 0 20px rgba(255, 0, 85, 0.5), 0 0 40px rgba(255, 0, 85, 0.2);
+            --neon-glow: 0 0 25px rgba(0, 240, 255, 0.6), 0 0 50px rgba(0, 240, 255, 0.3);
+            --pink-glow: 0 0 25px rgba(255, 0, 85, 0.6), 0 0 50px rgba(255, 0, 85, 0.3);
         }
 
         * {
@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* 4K Background Grid & Canvas */
+        /* 3D Kinetic Grid Canvas */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -47,16 +47,15 @@
             pointer-events: none;
         }
 
-        .bg-grid {
+        /* Ambient Scanning Overlay */
+        .scanlines {
             position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 0;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 4px, 6px 100%;
+            z-index: 2;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         /* Preloader */
@@ -73,13 +72,13 @@
         }
 
         .loader-ring {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             border: 3px solid transparent;
             border-top-color: var(--primary);
             border-bottom-color: var(--accent);
-            animation: spin 1.5s linear infinite;
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
             position: relative;
             box-shadow: var(--neon-glow);
         }
@@ -87,48 +86,50 @@
         .loader-ring::before {
             content: '';
             position: absolute;
-            inset: 8px;
+            inset: 10px;
             border-radius: 50%;
             border: 3px solid transparent;
             border-left-color: var(--secondary);
             border-right-color: var(--primary);
-            animation: spin-reverse 1s linear infinite;
+            animation: spin-reverse 0.9s linear infinite;
         }
 
         .loader-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 900;
-            margin-top: 25px;
-            letter-spacing: 4px;
+            margin-top: 30px;
+            letter-spacing: 5px;
             background: linear-gradient(45deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
+            animation: glitchText 2s infinite alternate;
         }
 
         .progress-bar-container {
-            width: 250px;
+            width: 280px;
             height: 6px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 10px;
-            margin-top: 15px;
+            margin-top: 18px;
             overflow: hidden;
             position: relative;
+            border: 1px solid rgba(0, 240, 255, 0.2);
         }
 
         .progress-bar {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            box-shadow: 0 0 10px var(--primary);
+            background: linear-gradient(90deg, var(--secondary), var(--primary), var(--accent));
+            box-shadow: 0 0 15px var(--primary);
             transition: width 0.1s linear;
         }
 
         /* Layout Structure */
         .app-container {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -139,13 +140,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 8%;
-            background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+            padding: 18px 8%;
+            background: rgba(2, 4, 10, 0.65);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .logo {
@@ -156,68 +158,74 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+            gap: 12px;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+            letter-spacing: 2px;
         }
 
         .logo span {
             color: var(--accent);
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
         }
 
         .search-box {
             position: relative;
-            width: 320px;
+            width: 340px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 10px 18px 10px 40px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            padding: 12px 20px 12px 45px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 30px;
             color: #fff;
             outline: none;
             font-family: inherit;
-            transition: 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .search-box input:focus {
             border-color: var(--primary);
             box-shadow: var(--neon-glow);
+            background: rgba(15, 23, 42, 0.9);
         }
 
         .search-box i {
             position: absolute;
-            left: 15px;
+            left: 18px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-muted);
+            color: var(--primary);
+            transition: 0.3s;
         }
 
         /* Hero Section */
         .hero {
             text-align: center;
-            padding: 80px 20px 40px;
+            padding: 90px 20px 40px;
+            position: relative;
         }
 
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(180deg, #ffffff 30%, var(--primary) 100%);
+            letter-spacing: 3px;
+            background: linear-gradient(180deg, #ffffff 20%, var(--primary) 70%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
         }
 
         .hero p {
             font-size: 1.3rem;
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
+            letter-spacing: 1px;
         }
 
         /* Mod Cards Grid */
@@ -229,72 +237,95 @@
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 35px;
+            perspective: 1000px;
         }
 
-        /* 4K Glassmorphic Card */
+        /* 3D Tilt Cyber Glass Card */
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            backdrop-filter: blur(16px);
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.15s ease-out, border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             display: flex;
             flex-direction: column;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.15), transparent 40%);
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
             border-color: var(--primary);
-            box-shadow: var(--neon-glow), inset 0 0 15px rgba(0, 240, 255, 0.1);
+            box-shadow: var(--neon-glow), inset 0 0 20px rgba(0, 240, 255, 0.15);
         }
 
         .card-img-wrapper {
             position: relative;
-            height: 200px;
+            height: 210px;
             overflow: hidden;
+            transform: translateZ(20px);
         }
 
         .card-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .card:hover .card-img-wrapper img {
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
         .badge-mod {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: linear-gradient(45deg, var(--accent), var(--secondary));
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: var(--pink-glow);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform: translateZ(30px);
         }
 
         .card-body {
-            padding: 22px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            transform: translateZ(25px);
         }
 
         .card-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #fff;
+            letter-spacing: 1px;
         }
 
         .card-info {
@@ -302,36 +333,37 @@
             gap: 15px;
             font-size: 0.9rem;
             color: var(--text-muted);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .card-info span {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .mod-features {
             list-style: none;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             flex-grow: 1;
         }
 
         .mod-features li {
             font-size: 0.95rem;
             color: #cbd5e1;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .mod-features li i {
             color: var(--primary);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            text-shadow: 0 0 8px var(--primary);
         }
 
-        /* Particle Motion Download Button */
+        /* Particle Explosion & Neon Button */
         .btn-particle-container {
             position: relative;
             width: 100%;
@@ -341,58 +373,77 @@
             position: relative;
             width: 100%;
             padding: 14px 20px;
-            border: none;
+            border: 1px solid rgba(0, 240, 255, 0.4);
             outline: none;
-            background: linear-gradient(90deg, #00f0ff, #7000ff);
+            background: linear-gradient(90deg, #00f0ff 0%, #7000ff 100%);
             color: #fff;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
             font-size: 0.95rem;
-            letter-spacing: 1px;
-            border-radius: 8px;
+            letter-spacing: 1.5px;
+            border-radius: 10px;
             cursor: pointer;
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-particle::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(30deg) translateY(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-particle:hover::after {
+            transform: rotate(30deg) translateY(100%);
         }
 
         .btn-particle:hover {
             box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+            border-color: #fff;
         }
 
         .btn-particle:active {
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 35px;
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 40px;
-            background: rgba(3, 7, 18, 0.9);
+            font-size: 0.95rem;
+            margin-top: 50px;
+            background: rgba(2, 4, 10, 0.95);
+            letter-spacing: 1px;
         }
 
-        /* Modal Popup */
+        /* Holographic Dynamic Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(2, 4, 10, 0.85);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
 
         .modal-overlay.active {
@@ -401,47 +452,55 @@
         }
 
         .modal-box {
-            background: #0f172a;
+            background: rgba(10, 15, 30, 0.9);
             border: 1px solid var(--primary);
             box-shadow: var(--neon-glow);
             width: 90%;
-            max-width: 450px;
-            border-radius: 16px;
-            padding: 30px;
+            max-width: 480px;
+            border-radius: 20px;
+            padding: 35px;
             text-align: center;
             position: relative;
-            transform: translateY(30px);
-            transition: transform 0.3s ease;
+            transform: scale(0.8) translateY(40px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .modal-overlay.active .modal-box {
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
         }
 
         .modal-box h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             color: #fff;
+            letter-spacing: 1px;
         }
 
         .modal-box p {
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
         }
 
         .modal-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 18px;
+            right: 18px;
             background: none;
             border: none;
-            color: #fff;
-            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-size: 1.4rem;
             cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* Animations */
+        .modal-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        /* Keyframe Animations */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -452,7 +511,12 @@
             100% { transform: rotate(-360deg); }
         }
 
-        /* Responsive */
+        @keyframes glitchText {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 0, 85, 0.8), -2px 0 var(--accent), 2px 0 var(--primary); }
+        }
+
+        /* Mobile Optimization */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -462,37 +526,39 @@
                 width: 100%;
             }
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.3rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvas Particle Background -->
-    <canvas id="particle-canvas"></canvas>
-    <div class="bg-grid"></div>
+    <!-- Ambient Overlay Screen -->
+    <div class="scanlines"></div>
 
-    <!-- Preloader Animation -->
+    <!-- Interactive Interactive Kinetic Canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Futuristic Dynamic Preloader -->
     <div id="preloader">
         <div class="loader-ring"></div>
-        <div class="loader-title">NEXUS MODS 4K</div>
+        <div class="loader-title">ALONEMODDER 4K</div>
         <div class="progress-bar-container">
             <div class="progress-bar" id="loader-progress"></div>
         </div>
     </div>
 
-    <!-- Main Web Container -->
+    <!-- Main Container -->
     <div class="app-container">
         
         <!-- Header -->
         <header>
             <a href="#" class="logo">
-                <i class="fa-solid fa-gamepad"></i> NEXUS<span>MODS</span>
+                <i class="fa-solid fa-bolt-lightning"></i> ALONE<span>MODDER</span>
             </a>
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search APK Mods...">
+                <input type="text" id="searchInput" placeholder="Search Ultra Mods...">
             </div>
         </header>
 
@@ -502,37 +568,36 @@
             <p>Experience uninterrupted gameplay with premium features unlocked, 4K texture mods, and max FPS performance.</p>
         </section>
 
-        <!-- Mod Cards Grid -->
+        <!-- Dynamic Game Grid -->
         <main class="main-content">
             <div class="grid-container" id="modGrid">
-                <!-- Cards will be populated dynamically via JavaScript -->
+                <!-- Javascript dynamic injection -->
             </div>
         </main>
 
         <!-- Footer -->
         <footer>
-            <p>&copy; 2026 NEXUS MODS 4K. All rights reserved. Ultra High-Performance Gaming Portal.</p>
+            <p>&copy; 2026 ALONEMODDER 4K. All rights reserved. Ultra High-Performance Gaming Portal.</p>
         </footer>
     </div>
 
-    <!-- Download Modal Container -->
+    <!-- Interactive Download Modal -->
     <div class="modal-overlay" id="downloadModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-            <i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+            <i class="fa-solid fa-circle-check" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary));"></i>
             <h3 id="modalGameTitle">Preparing File</h3>
-            <p id="modalStatus">Initializing high-speed 4K mirror links...</p>
-            <div class="progress-bar-container" style="width: 100%; margin-bottom: 20px;">
+            <p id="modalStatus">Securing 4K server connection...</p>
+            <div class="progress-bar-container" style="width: 100%; margin-bottom: 25px;">
                 <div class="progress-bar" id="downloadProgress"></div>
             </div>
             <button class="btn-particle" id="modalActionBtn" style="display: none;" onclick="closeModal()">Complete Download</button>
         </div>
     </div>
 
-    <!-- Main Program Script -->
     <script>
         /* ===================================================
-           1. DATA CONFIGURATION (4K Game Mods)
+           1. MOD DATA CONFIGURATION
            =================================================== */
         const modData = [
             {
@@ -598,7 +663,7 @@
         ];
 
         /* ===================================================
-           2. PLAYER PRELOADER SYSTEM
+           2. ADVANCED PRELOADER SYSTEM
            =================================================== */
         window.addEventListener('DOMContentLoaded', () => {
             const preloader = document.getElementById('preloader');
@@ -606,7 +671,7 @@
             let progress = 0;
 
             const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 12) + 5;
+                progress += Math.floor(Math.random() * 15) + 8;
                 if (progress >= 100) {
                     progress = 100;
                     loaderProgress.style.width = '100%';
@@ -614,23 +679,34 @@
                     setTimeout(() => {
                         preloader.style.opacity = '0';
                         preloader.style.visibility = 'hidden';
-                    }, 400);
+                    }, 500);
                 } else {
                     loaderProgress.style.width = progress + '%';
                 }
-            }, 60);
+            }, 50);
 
             renderCards(modData);
         });
 
         /* ===================================================
-           3. BACKGROUND CANVASES & PARTICLE ENGINE
+           3. ADVANCED INTERACTIVE KINETIC CANVAS
            =================================================== */
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         
         let width, height;
         let particles = [];
+        let mouse = { x: null, y: null, radius: 170 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
         function resizeCanvas() {
             width = canvas.width = window.innerWidth;
@@ -648,14 +724,36 @@
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
-                this.color = Math.random() > 0.5 ? '#00f0ff' : '#7000ff';
-                this.alpha = Math.random() * 0.6 + 0.2;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.size = Math.random() * 2.5 + 1;
+                this.speedX = (Math.random() - 0.5) * 1.2;
+                this.speedY = (Math.random() - 0.5) * 1.2;
+                this.color = Math.random() > 0.4 ? '#00f0ff' : (Math.random() > 0.5 ? '#7000ff' : '#ff0055');
+                this.alpha = Math.random() * 0.7 + 0.3;
+                this.density = (Math.random() * 30) + 1;
             }
 
             update() {
+                // Interactive Mouse Physics Magnetism & Push
+                if (mouse.x != null && mouse.y != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouse.radius) {
+                        let forceDirectionX = dx / distance;
+                        let forceDirectionY = dy / distance;
+                        let maxDistance = mouse.radius;
+                        let force = (maxDistance - distance) / maxDistance;
+                        let directionX = forceDirectionX * force * this.density;
+                        let directionY = forceDirectionY * force * this.density;
+                        
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
+                }
+
                 this.x += this.speedX;
                 this.y += this.speedY;
 
@@ -668,7 +766,7 @@
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
                 ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10;
+                ctx.shadowBlur = 12;
                 ctx.shadowColor = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -677,25 +775,24 @@
             }
         }
 
-        // Initialize particles
-        for (let i = 0; i < 90; i++) {
+        for (let i = 0; i < 110; i++) {
             particles.push(new Particle());
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, width, height);
             
-            // Draw connecting lines between close particles
+            // Draw Dynamic Connecting Lines
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a + 1; b < particles.length; b++) {
                     const dx = particles[a].x - particles[b].x;
                     const dy = particles[a].y - particles[b].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 120) {
+                    if (dist < 130) {
                         ctx.save();
-                        ctx.globalAlpha = (1 - dist / 120) * 0.15;
-                        ctx.strokeStyle = '#00f0ff';
+                        ctx.globalAlpha = (1 - dist / 130) * 0.25;
+                        ctx.strokeStyle = particles[a].color;
                         ctx.lineWidth = 0.8;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
@@ -716,14 +813,14 @@
         animateParticles();
 
         /* ===================================================
-           4. CARD RENDERING & SEARCH ENGINE
+           4. 3D CARD RENDERING & TILT ANIMATION ENGINE
            =================================================== */
         function renderCards(data) {
             const grid = document.getElementById('modGrid');
             grid.innerHTML = '';
 
             if(data.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-size: 1.2rem;">No Mods Found Matching Your Search.</p>`;
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-size: 1.3rem;">No Cyber Mods Found Matching Search Request.</p>`;
                 return;
             }
 
@@ -743,7 +840,7 @@
                             <span><i class="fa-solid fa-star" style="color: #ffd700;"></i> ${item.rating}</span>
                         </div>
                         <ul class="mod-features">
-                            ${item.features.map(f => `<li><i class="fa-solid fa-bolt"></i> ${f}</li>`).join('')}
+                            ${item.features.map(f => `<li><i class="fa-solid fa-shield-halved"></i> ${f}</li>`).join('')}
                         </ul>
                         <div class="btn-particle-container">
                             <button class="btn-particle" onclick="triggerDownload(event, '${item.title}')">
@@ -752,11 +849,36 @@
                         </div>
                     </div>
                 `;
+                
+                // Add 3D Tilt Effect
+                addTiltEffect(card);
                 grid.appendChild(card);
             });
         }
 
-        // Live Search Filter
+        function addTiltEffect(card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        }
+
+        // Search Engine Filter
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             const filtered = modData.filter(mod => 
@@ -767,31 +889,32 @@
         });
 
         /* ===================================================
-           5. BUTTON MOTION & PARTICLE BURST EFFECT
+           5. FULL HIGH-ATTENTION PARTICLE BURST SYSTEM
            =================================================== */
         function triggerDownload(event, gameTitle) {
             const btn = event.currentTarget;
             const rect = btn.getBoundingClientRect();
 
-            // Create localized explosion particles
-            for (let i = 0; i < 30; i++) {
-                createBurstParticle(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            // Create localized high-density explosion burst
+            for (let i = 0; i < 45; i++) {
+                createCyberParticle(rect.left + rect.width / 2, rect.top + rect.height / 2);
             }
 
-            // Open popup modal after burst
+            // Launch Modal
             setTimeout(() => {
                 openModal(gameTitle);
-            }, 300);
+            }, 350);
         }
 
-        function createBurstParticle(x, y) {
+        function createCyberParticle(x, y) {
             const particle = document.createElement('div');
             document.body.appendChild(particle);
 
-            const size = Math.floor(Math.random() * 8 + 4);
-            const destinationX = x + (Math.random() - 0.5) * 200;
-            const destinationY = y + (Math.random() - 0.5) * 200;
-            const color = Math.random() > 0.5 ? '#00f0ff' : '#ff0055';
+            const size = Math.floor(Math.random() * 10 + 4);
+            const destinationX = x + (Math.random() - 0.5) * 300;
+            const destinationY = y + (Math.random() - 0.5) * 300;
+            const colors = ['#00f0ff', '#ff0055', '#7000ff', '#ffffff'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
 
             particle.style.cssText = `
                 position: fixed;
@@ -802,9 +925,9 @@
                 background: ${color};
                 border-radius: 50%;
                 pointer-events: none;
-                box-shadow: 0 0 10px ${color};
+                box-shadow: 0 0 15px ${color};
                 z-index: 9999;
-                transition: transform 0.6s cubic-bezier(0.1, 1, 0.1, 1), opacity 0.6s ease;
+                transition: transform 0.7s cubic-bezier(0.1, 1, 0.1, 1), opacity 0.7s ease;
             `;
 
             requestAnimationFrame(() => {
@@ -814,11 +937,11 @@
 
             setTimeout(() => {
                 particle.remove();
-            }, 600);
+            }, 700);
         }
 
         /* ===================================================
-           6. MODAL & DOWNLOAD SIMULATION
+           6. HOLOGRAPHIC MODAL & DOWNLOAD SIMULATION
            =================================================== */
         const modal = document.getElementById('downloadModal');
         const downloadProgress = document.getElementById('downloadProgress');
@@ -835,17 +958,17 @@
 
             let p = 0;
             const timer = setInterval(() => {
-                p += Math.floor(Math.random() * 15) + 10;
+                p += Math.floor(Math.random() * 18) + 12;
                 if (p >= 100) {
                     p = 100;
                     downloadProgress.style.width = '100%';
-                    modalStatus.innerText = "Mod File Ready to Install!";
+                    modalStatus.innerText = "Mod File Encrypted & Ready!";
                     modalActionBtn.style.display = 'inline-flex';
                     clearInterval(timer);
                 } else {
                     downloadProgress.style.width = p + '%';
                 }
-            }, 150);
+            }, 120);
         }
 
         function closeModal() {
