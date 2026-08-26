@@ -3,570 +3,2875 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#07020f">
-<title>ALONEMODDER | VIP MOD STATION</title>
+<meta name="theme-color" content="#05020b">
+<meta name="description" content="ALONEMODDER Premium Mod Distribution Hub">
+<title>ALONEMODDER // VIP MOD HUB</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap');
 
 :root{
-  --bg:#05020b;
-  --bg2:#090313;
-  --panel:rgba(18,7,32,.72);
-  --panel2:rgba(30,10,52,.55);
+  --bg:#030107;
+  --bg2:#07020f;
+  --panel:rgba(15,7,28,.72);
+  --panel2:rgba(25,10,45,.62);
   --purple:#9d4edd;
+  --purple2:#7b2cbf;
   --violet:#c77dff;
-  --deep:#5a189a;
-  --pink:#ff4ecd;
   --cyan:#00f5d4;
+  --pink:#ff4ecd;
   --white:#fff;
-  --muted:#9c91aa;
-  --line:rgba(199,125,255,.20);
-  --glow:rgba(157,78,221,.38);
+  --muted:#938ca3;
+  --border:rgba(199,125,255,.20);
+  --shadow:rgba(0,0,0,.55);
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   min-height:100vh;
   color:var(--white);
   font-family:Inter,system-ui,sans-serif;
   background:
-    radial-gradient(circle at 10% 0%,rgba(157,78,221,.18),transparent 30%),
-    radial-gradient(circle at 100% 45%,rgba(90,24,154,.12),transparent 28%),
-    linear-gradient(135deg,#030107,#08020f 55%,#040108);
+    radial-gradient(circle at 15% 5%,rgba(157,78,221,.16),transparent 28%),
+    radial-gradient(circle at 90% 35%,rgba(199,125,255,.09),transparent 25%),
+    radial-gradient(circle at 45% 100%,rgba(123,44,191,.13),transparent 32%),
+    var(--bg);
   overflow-x:hidden;
 }
-button,input{font:inherit}
-button{cursor:pointer}
 
-#fx{
-  position:fixed;inset:0;width:100%;height:100%;
-  pointer-events:none;z-index:-10;
+button,
+input{
+  font:inherit;
 }
-.noise{
-  position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.blob{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:-8;opacity:.22}
-.blob.a{width:520px;height:520px;background:#8b2be2;left:-240px;top:-180px;animation:blobA 14s ease-in-out infinite alternate}
-.blob.b{width:500px;height:500px;background:#6b21a8;right:-250px;top:25%;animation:blobB 17s ease-in-out infinite alternate}
-.blob.c{width:450px;height:450px;background:#d026d3;left:25%;bottom:-350px;animation:blobC 19s ease-in-out infinite alternate}
-@keyframes blobA{to{transform:translate(280px,190px) scale(1.25)}}
-@keyframes blobB{to{transform:translate(-180px,-120px) scale(1.25)}}
-@keyframes blobC{to{transform:translate(170px,-180px) scale(1.2)}}
 
-/* BOOT */
+/* =====================================================
+   LOADER
+===================================================== */
+
 #loader{
-  position:fixed;inset:0;z-index:99999;display:grid;place-items:center;
-  background:#020106;transition:opacity .7s,visibility .7s;
-}
-#loader.hide{opacity:0;visibility:hidden}
-.boot{
-  width:min(520px,88vw);text-align:center;
-  padding:34px 25px;border:1px solid var(--line);border-radius:24px;
-  background:rgba(10,3,19,.82);backdrop-filter:blur(24px);
-  box-shadow:0 0 80px rgba(157,78,221,.14);
-}
-.boot-logo{
-  font:900 clamp(30px,8vw,64px) Orbitron;letter-spacing:5px;
-  background:linear-gradient(90deg,#fff,var(--violet),var(--pink),var(--cyan),#fff);
-  background-size:350%;-webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:flow 3s linear infinite;
-}
-.boot-sub{margin-top:10px;color:#8f7ca0;font:10px Orbitron;letter-spacing:4px}
-.boot-ring{
-  width:74px;height:74px;margin:28px auto 20px;border-radius:50%;
-  border:2px solid rgba(199,125,255,.12);
-  border-top-color:var(--violet);border-right-color:var(--pink);
-  box-shadow:0 0 35px var(--glow);animation:spin .8s linear infinite;
-}
-.boot-track{height:4px;border-radius:10px;background:#17101e;overflow:hidden}
-.boot-bar{height:100%;width:0;background:linear-gradient(90deg,var(--deep),var(--violet),var(--pink),var(--cyan));box-shadow:0 0 18px var(--violet);transition:width .25s}
-.boot-status{margin-top:12px;color:#71667b;font:9px Orbitron;letter-spacing:2px}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes flow{to{background-position:350%}}
-@keyframes pulse{50%{opacity:.4}}
-
-/* NAV */
-.navbar{
-  position:fixed;top:14px;left:50%;transform:translateX(-50%);
-  width:min(1180px,93%);z-index:500;
-  padding:12px 15px;border:1px solid var(--line);border-radius:18px;
-  background:rgba(5,2,12,.72);backdrop-filter:blur(22px);
-  box-shadow:0 15px 55px rgba(0,0,0,.42);
-}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font:900 15px Orbitron;letter-spacing:2px}
-.logo b{color:var(--violet);text-shadow:0 0 18px var(--purple)}
-.status{display:flex;align-items:center;gap:8px;color:#8d8497;font:9px Orbitron;letter-spacing:1px}
-.status i{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);animation:pulse 1.2s infinite}
-.nav-actions{display:flex;gap:7px}
-.nav-btn{
-  padding:8px 12px;border:1px solid rgba(255,255,255,.08);border-radius:9px;
-  color:#ddd;background:rgba(255,255,255,.035);transition:.25s
-}
-.nav-btn:hover{border-color:var(--violet);box-shadow:0 0 18px rgba(157,78,221,.16);transform:translateY(-2px)}
-
-/* HERO */
-.hero{
-  width:min(1250px,93%);min-height:510px;margin:100px auto 30px;
-  position:relative;overflow:hidden;border:1px solid var(--line);border-radius:28px;
-  background:#08030f;box-shadow:0 30px 100px rgba(0,0,0,.55);
-}
-.hero-img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  object-position:center;opacity:.46;filter:brightness(.68) contrast(1.1) saturate(1.2);
-  transform:scale(1.04);transition:transform 8s ease;
-}
-.hero:hover .hero-img{transform:scale(1.09)}
-.hero-shade{
-  position:absolute;inset:0;
+  position:fixed;
+  inset:0;
+  z-index:999999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
   background:
-    linear-gradient(90deg,#05020b 0%,rgba(5,2,11,.82) 37%,rgba(5,2,11,.18) 75%),
-    linear-gradient(0deg,#05020b 0%,transparent 48%,rgba(5,2,11,.25));
+    radial-gradient(circle at center,
+      rgba(123,44,191,.15),
+      transparent 38%),
+    #020106;
+  transition:.8s ease;
 }
+
+#loader.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader-orb{
+  position:absolute;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(199,125,255,.20),
+    rgba(123,44,191,.07),
+    transparent 70%
+  );
+  filter:blur(20px);
+  animation:loaderOrb 5s ease-in-out infinite;
+}
+
+@keyframes loaderOrb{
+  50%{
+    transform:scale(1.35);
+    opacity:.65;
+  }
+}
+
+.loader-ring{
+  position:relative;
+  width:105px;
+  height:105px;
+  border-radius:50%;
+  border:2px solid rgba(199,125,255,.10);
+  border-top-color:var(--violet);
+  border-right-color:var(--purple);
+  box-shadow:
+    0 0 25px rgba(157,78,221,.35),
+    inset 0 0 20px rgba(157,78,221,.12);
+  animation:spin 1s linear infinite;
+}
+
+.loader-ring::after{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:50%;
+  border:1px solid rgba(0,245,212,.25);
+  border-bottom-color:var(--cyan);
+  animation:spin 1.8s linear infinite reverse;
+}
+
+.loader-brand{
+  position:absolute;
+  z-index:2;
+  font:800 13px Orbitron;
+  letter-spacing:3px;
+  text-shadow:0 0 18px var(--violet);
+}
+
+.loader-title{
+  position:relative;
+  z-index:2;
+  margin-top:35px;
+  font:800 clamp(30px,8vw,68px) Orbitron;
+  letter-spacing:5px;
+  background:linear-gradient(
+    90deg,
+    #fff,
+    var(--violet),
+    var(--pink),
+    var(--cyan),
+    #fff
+  );
+  background-size:300%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:gradient 3s linear infinite;
+}
+
+.loader-sub{
+  position:relative;
+  z-index:2;
+  margin-top:9px;
+  color:#81758d;
+  font:9px Orbitron;
+  letter-spacing:3px;
+}
+
+.loader-track{
+  position:relative;
+  z-index:2;
+  width:min(380px,78vw);
+  height:4px;
+  margin-top:28px;
+  overflow:hidden;
+  border-radius:50px;
+  background:#17101f;
+}
+
+.loader-progress{
+  width:0;
+  height:100%;
+  border-radius:50px;
+  background:linear-gradient(
+    90deg,
+    var(--purple2),
+    var(--violet),
+    var(--pink),
+    var(--cyan)
+  );
+  box-shadow:0 0 20px var(--violet);
+  transition:width .25s ease;
+}
+
+.loader-status{
+  position:relative;
+  z-index:2;
+  margin-top:12px;
+  color:#766b80;
+  font:9px Orbitron;
+  letter-spacing:2px;
+}
+
+.loader-percent{
+  position:relative;
+  z-index:2;
+  margin-top:7px;
+  color:var(--violet);
+  font:700 10px Orbitron;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes gradient{
+  to{background-position:300%}
+}
+
+/* =====================================================
+   PARTICLES / BACKGROUND
+===================================================== */
+
+#particles{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-10;
+  pointer-events:none;
+}
+
+#blobCanvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-9;
+  pointer-events:none;
+  opacity:.8;
+}
+
+.aurora{
+  position:fixed;
+  width:520px;
+  height:520px;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.14;
+  pointer-events:none;
+  z-index:-8;
+}
+
+.a1{
+  left:-230px;
+  top:-250px;
+  background:#8b2be2;
+  animation:aurora1 13s ease-in-out infinite alternate;
+}
+
+.a2{
+  right:-250px;
+  top:28%;
+  background:#b44dff;
+  animation:aurora2 16s ease-in-out infinite alternate;
+}
+
+.a3{
+  left:30%;
+  bottom:-420px;
+  background:#ff21d0;
+  animation:aurora3 18s ease-in-out infinite alternate;
+}
+
+@keyframes aurora1{
+  to{
+    transform:translate(250px,190px) scale(1.25);
+  }
+}
+
+@keyframes aurora2{
+  to{
+    transform:translate(-180px,-130px) scale(1.25);
+  }
+}
+
+@keyframes aurora3{
+  to{
+    transform:translate(170px,-180px) scale(1.2);
+  }
+}
+
+.mouse-glow{
+  position:fixed;
+  left:50%;
+  top:50%;
+  width:340px;
+  height:340px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(199,125,255,.12),
+    transparent 68%
+  );
+  pointer-events:none;
+  z-index:-5;
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1180px,92%);
+  z-index:500;
+  padding:11px 14px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:rgba(5,2,12,.72);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.38),
+    inset 0 1px rgba(255,255,255,.04);
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo{
+  font:800 15px Orbitron;
+  letter-spacing:2px;
+  white-space:nowrap;
+}
+
+.logo b{
+  color:var(--violet);
+  text-shadow:0 0 18px var(--purple);
+}
+
+.logo small{
+  color:#5e5269;
+  font-size:7px;
+  letter-spacing:1px;
+}
+
+.online{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#918797;
+  font:8px Orbitron;
+  letter-spacing:1px;
+}
+
+.online i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 14px var(--cyan);
+  animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+  50%{
+    opacity:.25;
+    transform:scale(.7);
+  }
+}
+
+.nav-actions{
+  display:flex;
+  gap:7px;
+}
+
+.nav-btn{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:9px;
+  padding:8px 12px;
+  background:rgba(255,255,255,.035);
+  color:#ddd;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.nav-btn:hover{
+  border-color:var(--violet);
+  color:#fff;
+  box-shadow:0 0 18px rgba(157,78,221,.18);
+  transform:translateY(-2px);
+}
+
+/* =====================================================
+   NOTIFICATION CENTER
+===================================================== */
+
+.notification-panel{
+  position:fixed;
+  right:4%;
+  top:82px;
+  width:min(370px,90vw);
+  z-index:1000;
+  padding:15px;
+  border:1px solid rgba(199,125,255,.28);
+  border-radius:18px;
+  background:rgba(8,3,17,.92);
+  backdrop-filter:blur(25px);
+  box-shadow:0 25px 80px rgba(0,0,0,.6);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-15px) scale(.96);
+  transition:.3s ease;
+}
+
+.notification-panel.show{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+}
+
+.notification-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.notification-head h3{
+  font:700 11px Orbitron;
+  letter-spacing:1px;
+}
+
+.notification-head span{
+  color:var(--cyan);
+  font:8px Orbitron;
+}
+
+.notification-item{
+  display:flex;
+  gap:11px;
+  padding:12px;
+  margin-top:8px;
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+
+.notification-icon{
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  border-radius:10px;
+  background:rgba(157,78,221,.14);
+  border:1px solid rgba(199,125,255,.22);
+}
+
+.notification-item strong{
+  display:block;
+  font-size:12px;
+}
+
+.notification-item p{
+  margin-top:4px;
+  color:#777;
+  font-size:10px;
+  line-height:1.4;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+  position:relative;
+  width:min(1250px,92%);
+  min-height:480px;
+  margin:105px auto 35px;
+  overflow:hidden;
+  border:1px solid rgba(199,125,255,.24);
+  border-radius:28px;
+  background:#08030f;
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.55),
+    0 0 70px rgba(157,78,221,.07);
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 35%,
+      rgba(199,125,255,.08) 50%,
+      transparent 65%
+    );
+  transform:translateX(-100%);
+  animation:scan 7s linear infinite;
+  z-index:3;
+  pointer-events:none;
+}
+
+@keyframes scan{
+  to{transform:translateX(100%)}
+}
+
+.hero-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:.42;
+  filter:brightness(.62) contrast(1.12) saturate(1.25);
+  transform:scale(1.03);
+  animation:heroZoom 14s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom{
+  to{transform:scale(1.08)}
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      #05020b 0%,
+      rgba(5,2,11,.88) 27%,
+      rgba(5,2,11,.50) 62%,
+      rgba(5,2,11,.25) 100%
+    ),
+    linear-gradient(
+      0deg,
+      #05020b 0%,
+      transparent 55%
+    );
+}
+
 .hero-grid{
-  position:absolute;inset:0;opacity:.11;
-  background-image:linear-gradient(rgba(199,125,255,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(199,125,255,.25) 1px,transparent 1px);
-  background-size:42px 42px;
-  mask-image:linear-gradient(to right,#000,transparent 75%);
+  position:absolute;
+  inset:0;
+  opacity:.12;
+  background-image:
+    linear-gradient(rgba(199,125,255,.35) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(199,125,255,.35) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:linear-gradient(to bottom,transparent,#000 25%,transparent);
 }
-.hero-content{position:relative;z-index:2;min-height:510px;padding:65px;display:flex;justify-content:center;flex-direction:column}
-.eyebrow{
-  width:max-content;padding:7px 12px;border:1px solid rgba(199,125,255,.28);
-  border-radius:99px;background:rgba(157,78,221,.08);color:var(--violet);
-  font:9px Orbitron;letter-spacing:2px;box-shadow:0 0 25px rgba(157,78,221,.08)
+
+.hero-content{
+  position:relative;
+  z-index:4;
+  min-height:480px;
+  padding:65px;
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
 }
+
+.system-badge{
+  width:max-content;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border:1px solid rgba(199,125,255,.25);
+  border-radius:50px;
+  background:rgba(157,78,221,.07);
+  color:var(--violet);
+  font:8px Orbitron;
+  letter-spacing:2px;
+}
+
+.system-badge i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 10px var(--cyan);
+}
+
 .hero h1{
-  margin-top:20px;font:900 clamp(43px,8vw,94px) Orbitron;line-height:.9;letter-spacing:2px;
-  background:linear-gradient(90deg,#fff,var(--violet),#fff,var(--pink),var(--cyan),#fff);
-  background-size:400%;-webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:flow 8s linear infinite;
+  margin-top:20px;
+  font:800 clamp(42px,8vw,95px) Orbitron;
+  line-height:.9;
+  letter-spacing:3px;
+  background:
+    linear-gradient(
+      90deg,
+      #fff,
+      var(--violet),
+      var(--pink),
+      #fff,
+      var(--cyan)
+    );
+  background-size:350%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  animation:gradient 7s linear infinite;
+  filter:drop-shadow(0 0 22px rgba(157,78,221,.20));
 }
-.hero p{max-width:650px;margin-top:22px;color:#aaa1b3;line-height:1.75}
-.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}
-.btn{
-  position:relative;overflow:hidden;padding:13px 18px;border:1px solid rgba(199,125,255,.3);
-  border-radius:11px;color:#fff;text-decoration:none;font-weight:800;background:linear-gradient(100deg,#7628bd,#4310a0);
-  box-shadow:0 0 25px rgba(157,78,221,.12);transition:.3s
-}
-.btn:hover{transform:translateY(-3px);box-shadow:0 12px 38px rgba(157,78,221,.28)}
-.btn.alt{background:rgba(255,255,255,.035)}
-.ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.28);animation:ripple .65s linear;pointer-events:none}
-@keyframes ripple{to{transform:scale(5);opacity:0}}
 
-/* PROFILE + NOTIFICATION */
+.hero p{
+  max-width:620px;
+  margin-top:22px;
+  color:#aaa3b2;
+  line-height:1.75;
+  font-size:14px;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:28px;
+}
+
+.neon-btn{
+  position:relative;
+  overflow:hidden;
+  padding:13px 19px;
+  border:1px solid rgba(199,125,255,.35);
+  border-radius:11px;
+  background:linear-gradient(
+    100deg,
+    #7127b8,
+    #4b11a4,
+    #7127b8
+  );
+  background-size:200%;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.neon-btn:hover{
+  background-position:100%;
+  transform:translateY(-3px);
+  box-shadow:
+    0 12px 35px rgba(157,78,221,.30),
+    0 0 25px rgba(199,125,255,.12);
+}
+
+.neon-btn.secondary{
+  background:rgba(255,255,255,.035);
+}
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
 .profile{
-  width:min(1180px,88%);margin:-62px auto 28px;position:relative;z-index:10;
-  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  width:min(1180px,88%);
+  margin:-65px auto 35px;
+  position:relative;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
-.profile-left{display:flex;align-items:center;gap:17px}
+
 .avatar{
-  width:112px;height:112px;padding:3px;flex:none;border-radius:50%;
-  background:conic-gradient(var(--violet),var(--pink),var(--cyan),var(--violet));
-  box-shadow:0 0 38px rgba(157,78,221,.5);animation:spin 7s linear infinite
+  position:relative;
+  width:118px;
+  height:118px;
+  padding:3px;
+  flex:none;
+  border-radius:50%;
+  background:conic-gradient(
+    var(--violet),
+    var(--pink),
+    var(--purple),
+    var(--cyan),
+    var(--violet)
+  );
+  box-shadow:
+    0 0 35px rgba(157,78,221,.45),
+    0 0 70px rgba(157,78,221,.12);
+  animation:hue 7s linear infinite;
 }
-.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:4px solid #08030f}
-.profile h2{font:800 24px Orbitron}
-.profile p{margin-top:6px;color:var(--violet);font:9px Orbitron;letter-spacing:2px}
-.notice{
-  max-width:390px;padding:13px 15px;border:1px solid rgba(199,125,255,.22);border-radius:14px;
-  background:linear-gradient(135deg,rgba(157,78,221,.13),rgba(255,255,255,.025));
-  box-shadow:0 12px 35px rgba(0,0,0,.25)
-}
-.notice-top{display:flex;align-items:center;gap:8px;color:var(--violet);font:9px Orbitron;letter-spacing:1.5px}
-.notice-dot{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 12px var(--pink);animation:pulse 1s infinite}
-.notice p{margin:6px 0 0;color:#9e95a8;font-size:11px;line-height:1.5}
 
-/* STATS */
-.stats{width:min(1180px,88%);margin:auto auto 25px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.avatar::before{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border:1px solid rgba(199,125,255,.18);
+  border-radius:50%;
+  animation:avatarRing 4s linear infinite;
+}
+
+@keyframes avatarRing{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  border:4px solid #08030e;
+}
+
+@keyframes hue{
+  to{filter:hue-rotate(360deg)}
+}
+
+.profile h2{
+  font:700 24px Orbitron;
+  letter-spacing:1px;
+}
+
+.profile p{
+  margin-top:6px;
+  color:var(--violet);
+  font:8px Orbitron;
+  letter-spacing:2px;
+}
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats{
+  width:min(1180px,88%);
+  margin:auto auto 28px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+
 .stat{
-  padding:19px;text-align:center;border:1px solid var(--line);border-radius:16px;background:var(--panel);
-  backdrop-filter:blur(18px);transition:.3s
+  position:relative;
+  overflow:hidden;
+  padding:20px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--panel);
+  backdrop-filter:blur(15px);
+  transition:.3s;
 }
-.stat:hover{transform:translateY(-4px);border-color:rgba(199,125,255,.42);box-shadow:0 12px 35px rgba(157,78,221,.12)}
-.stat strong{display:block;color:var(--violet);font:800 25px Orbitron;text-shadow:0 0 16px rgba(199,125,255,.2)}
-.stat span{display:block;margin-top:6px;color:#716778;font:9px Orbitron;letter-spacing:1px}
 
-/* STORE */
-.store{width:min(1180px,88%);margin:auto;display:grid;grid-template-columns:220px 1fr;gap:18px}
-.glass{border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(18px);box-shadow:0 20px 65px rgba(0,0,0,.35)}
-.sidebar{height:max-content;padding:13px;position:sticky;top:92px}
-.side-title{padding:10px;color:#655d6d;font:9px Orbitron;letter-spacing:2px}
-.category{width:100%;margin:3px 0;padding:12px;border:1px solid transparent;border-radius:10px;background:transparent;color:#928998;text-align:left;transition:.25s}
-.category:hover,.category.active{color:#fff;background:linear-gradient(90deg,rgba(157,78,221,.17),rgba(157,78,221,.03));border-color:rgba(157,78,221,.22);box-shadow:inset 3px 0 var(--violet),0 0 20px rgba(157,78,221,.06)}
+.stat::after{
+  content:"";
+  position:absolute;
+  left:10%;
+  right:10%;
+  bottom:0;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--violet),
+    transparent
+  );
+  opacity:.5;
+}
+
+.stat:hover{
+  transform:translateY(-4px);
+  border-color:rgba(199,125,255,.4);
+  box-shadow:0 15px 35px rgba(0,0,0,.3);
+}
+
+.stat strong{
+  display:block;
+  color:var(--violet);
+  font:700 25px Orbitron;
+  text-shadow:0 0 15px rgba(199,125,255,.25);
+}
+
+.stat span{
+  display:block;
+  margin-top:6px;
+  color:#777;
+  font:8px Orbitron;
+  letter-spacing:1px;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+  width:min(1180px,88%);
+  margin:auto;
+  display:grid;
+  grid-template-columns:225px 1fr;
+  gap:20px;
+}
+
+.glass{
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--panel);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+  height:max-content;
+  padding:14px;
+  position:sticky;
+  top:95px;
+}
+
+.side-title{
+  padding:10px;
+  color:#665c70;
+  font:8px Orbitron;
+  letter-spacing:2px;
+}
+
+.category{
+  width:100%;
+  margin:4px 0;
+  padding:12px;
+  border:1px solid transparent;
+  border-radius:10px;
+  background:transparent;
+  color:#999;
+  text-align:left;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.category:hover,
+.category.active{
+  color:#fff;
+  background:rgba(157,78,221,.12);
+  border-color:rgba(157,78,221,.25);
+  box-shadow:inset 3px 0 var(--violet);
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
 .search{
-  position:relative;margin-bottom:15px;padding:1px;border-radius:14px;
-  background:linear-gradient(90deg,rgba(157,78,221,.25),rgba(255,78,205,.08),rgba(0,245,212,.12))
+  position:relative;
+  margin-bottom:17px;
 }
-.search input{
-  width:100%;padding:15px 45px;border:0;outline:0;border-radius:13px;background:rgba(5,2,12,.9);color:#fff
+
+.search-icon{
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--violet);
+  font-size:19px;
 }
-.search span{position:absolute;left:17px;top:50%;transform:translateY(-50%);color:var(--violet);font-size:18px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+
+#search{
+  width:100%;
+  padding:15px 18px 15px 45px;
+  border:1px solid var(--border);
+  outline:none;
+  border-radius:13px;
+  background:rgba(5,2,12,.75);
+  color:#fff;
+  transition:.25s;
+}
+
+#search::placeholder{
+  color:#5f5668;
+}
+
+#search:focus{
+  border-color:var(--violet);
+  box-shadow:0 0 25px rgba(157,78,221,.15);
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+
 .card{
-  position:relative;overflow:hidden;min-height:230px;padding:18px;border:1px solid var(--line);border-radius:17px;
-  background:linear-gradient(145deg,rgba(30,11,52,.75),rgba(7,3,15,.9));
-  transition:transform .18s,border-color .3s,box-shadow .3s;transform-style:preserve-3d
+  position:relative;
+  overflow:hidden;
+  min-height:235px;
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(30,12,52,.75),
+      rgba(7,3,15,.90)
+    );
+  transform-style:preserve-3d;
+  transition:
+    transform .15s ease,
+    border-color .3s,
+    box-shadow .3s;
 }
-.card:hover{border-color:rgba(199,125,255,.45);box-shadow:0 20px 55px rgba(0,0,0,.45)}
+
+.card::before{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  right:-120px;
+  top:-120px;
+  border-radius:50%;
+  background:var(--violet);
+  filter:blur(40px);
+  opacity:.09;
+  pointer-events:none;
+}
+
 .card::after{
-  content:"";position:absolute;width:170px;height:170px;right:-95px;top:-95px;border-radius:50%;
-  background:var(--violet);filter:blur(35px);opacity:.1;pointer-events:none
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:70%;
+  height:100%;
+  transform:skewX(-20deg);
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+  transition:.6s;
+  pointer-events:none;
 }
-.card-top{display:flex;gap:13px}
-.icon{width:57px;height:57px;display:grid;place-items:center;border-radius:14px;border:1px solid rgba(199,125,255,.3);background:rgba(157,78,221,.12);font-size:25px}
-.meta h3{margin-top:4px;font-size:16px}.meta p{margin-top:6px;color:#716778;font:9px Orbitron}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
-.tag{padding:5px 8px;border:1px solid rgba(157,78,221,.22);border-radius:6px;color:var(--violet);background:rgba(157,78,221,.07);font:8px Orbitron}
-.tag.cyan{color:var(--cyan);border-color:rgba(0,245,212,.2);background:rgba(0,245,212,.035)}
+
+.card:hover::after{
+  left:150%;
+}
+
+.card:hover{
+  border-color:rgba(199,125,255,.45);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,.45),
+    0 0 25px rgba(157,78,221,.08);
+}
+
+.card-top{
+  display:flex;
+  gap:13px;
+}
+
+.icon{
+  width:57px;
+  height:57px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  border:1px solid rgba(199,125,255,.3);
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(199,125,255,.22),
+      transparent 60%
+    ),
+    rgba(157,78,221,.10);
+  font-size:25px;
+  box-shadow:inset 0 0 20px rgba(157,78,221,.06);
+}
+
+.meta h3{
+  margin-top:4px;
+  font-size:16px;
+}
+
+.meta p{
+  margin-top:6px;
+  color:#777;
+  font:8px Orbitron;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:16px 0;
+}
+
+.tag{
+  padding:5px 8px;
+  border:1px solid rgba(157,78,221,.2);
+  border-radius:6px;
+  color:var(--violet);
+  background:rgba(157,78,221,.07);
+  font:8px Orbitron;
+}
+
+.tag.cyan{
+  color:var(--cyan);
+  border-color:rgba(0,245,212,.2);
+  background:rgba(0,245,212,.04);
+}
+
+.tag.pink{
+  color:var(--pink);
+  border-color:rgba(255,78,205,.2);
+  background:rgba(255,78,205,.04);
+}
+
 .download{
-  position:absolute;left:18px;right:18px;bottom:18px;width:calc(100% - 36px);padding:11px;
-  border:1px solid rgba(199,125,255,.25);border-radius:9px;background:linear-gradient(90deg,#7628bd,#4310a0);
-  color:#fff;font-weight:800;overflow:hidden;transition:.25s
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  width:calc(100% - 36px);
+  padding:11px;
+  border:1px solid rgba(199,125,255,.25);
+  border-radius:9px;
+  background:
+    linear-gradient(
+      90deg,
+      #7127b8,
+      #4b11a4,
+      #7127b8
+    );
+  background-size:200%;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  overflow:hidden;
+  transition:.25s;
 }
-.download:hover{transform:translateY(-2px);box-shadow:0 0 24px rgba(157,78,221,.28)}
-.progress{position:absolute;inset:0 auto 0 0;width:0;background:rgba(255,255,255,.15);transition:width .12s}
-.download-text{position:relative;z-index:2}
-.empty{display:none;padding:45px;text-align:center;border:1px dashed rgba(199,125,255,.25);border-radius:15px;color:#716778}
-.empty.show{display:block}
 
-/* TOAST */
+.download:hover{
+  background-position:100%;
+  transform:translateY(-2px);
+  box-shadow:0 0 22px rgba(157,78,221,.3);
+}
+
+.progress{
+  position:absolute;
+  inset:0 auto 0 0;
+  width:0;
+  background:rgba(255,255,255,.14);
+  transition:width .12s;
+}
+
+.download-text{
+  position:relative;
+  z-index:2;
+}
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+  display:none;
+  padding:50px 20px;
+  text-align:center;
+  border:1px dashed rgba(199,125,255,.2);
+  border-radius:15px;
+  color:#777;
+}
+
+.empty.show{
+  display:block;
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
 #toast{
-  position:fixed;right:18px;bottom:18px;z-index:10001;max-width:calc(100vw - 36px);
-  padding:14px 16px;border:1px solid rgba(199,125,255,.28);border-radius:13px;
-  background:rgba(9,3,17,.92);backdrop-filter:blur(22px);box-shadow:0 18px 55px rgba(0,0,0,.5);
-  transform:translateY(100px);opacity:0;transition:.35s
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:10000;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  max-width:calc(100vw - 40px);
+  padding:13px 16px;
+  border:1px solid rgba(199,125,255,.3);
+  border-radius:12px;
+  background:rgba(10,4,20,.92);
+  backdrop-filter:blur(20px);
+  transform:translateY(100px);
+  opacity:0;
+  transition:.35s;
+  font-size:12px;
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.45),
+    0 0 25px rgba(157,78,221,.08);
 }
-#toast.show{transform:translateY(0);opacity:1}
-.toast-dot{display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
 
-footer{width:min(1180px,88%);margin:55px auto 25px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);text-align:center;color:#514a59;font:8px Orbitron;letter-spacing:2px}
-.reveal{opacity:0;transform:translateY(25px)}.reveal.show{animation:reveal .7s cubic-bezier(.16,1,.3,1) forwards}
-@keyframes reveal{to{opacity:1;transform:translateY(0)}}
+#toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.toast-dot{
+  width:7px;
+  height:7px;
+  flex:none;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 10px var(--cyan);
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+  width:min(1180px,88%);
+  margin:60px auto 30px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.06);
+  text-align:center;
+  color:#555;
+  font:8px Orbitron;
+  letter-spacing:2px;
+}
+
+/* =====================================================
+   REVEAL
+===================================================== */
+
+.reveal{
+  opacity:0;
+  transform:translateY(25px);
+}
+
+.reveal.show{
+  animation:reveal .75s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes reveal{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:850px){
-  .status{display:none}.hero{min-height:450px;margin-top:92px}.hero-content{min-height:450px;padding:35px 25px}
-  .profile{margin-top:-32px;flex-direction:column;text-align:center}.profile-left{flex-direction:column}.notice{max-width:100%}
-  .stats{grid-template-columns:repeat(2,1fr)}.store{grid-template-columns:1fr}.sidebar{position:static}.grid{grid-template-columns:1fr}
+
+  .online{
+    display:none;
+  }
+
+  .hero{
+    margin-top:95px;
+    min-height:440px;
+  }
+
+  .hero-content{
+    min-height:440px;
+    padding:35px 25px;
+  }
+
+  .profile{
+    margin-top:-35px;
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .container{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    position:static;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
 }
+
 @media(max-width:480px){
-  .nav-actions .nav-btn:first-child{display:none}.hero{width:94%;border-radius:20px}.hero h1{font-size:42px}
-  .hero p{font-size:13px}.stats,.store,.profile{width:92%}.avatar{width:100px;height:100px}.stat{padding:15px 7px}.stat strong{font-size:19px}
+
+  .nav-btn{
+    padding:7px 9px;
+    font-size:11px;
+  }
+
+  .logo{
+    font-size:12px;
+  }
+
+  .hero{
+    width:94%;
+    border-radius:20px;
+  }
+
+  .hero h1{
+    font-size:40px;
+  }
+
+  .hero p{
+    font-size:12px;
+  }
+
+  .profile{
+    width:92%;
+  }
+
+  .stats,
+  .container{
+    width:92%;
+  }
+
+  .stat{
+    padding:15px 7px;
+  }
+
+  .stat strong{
+    font-size:19px;
+  }
+
+  .avatar{
+    width:100px;
+    height:100px;
+  }
+
+  .notification-panel{
+    right:5%;
+  }
+
 }
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
+<!-- =====================================================
+     PREMIUM LOADER
+===================================================== -->
+
 <div id="loader">
-  <div class="boot">
-    <div class="boot-logo">ALONEMODDER</div>
-    <div class="boot-sub">VIP MOD STATION</div>
-    <div class="boot-ring"></div>
-    <div class="boot-track"><div class="boot-bar" id="bootBar"></div></div>
-    <div class="boot-status" id="bootStatus">STARTING CORE...</div>
+
+  <div class="loader-orb"></div>
+
+  <div class="loader-ring">
+    <div class="loader-brand">AM</div>
   </div>
+
+  <div class="loader-title">
+    ALONEMODDER
+  </div>
+
+  <div class="loader-sub">
+    VIP MOD DISTRIBUTION SYSTEM
+  </div>
+
+  <div class="loader-track">
+    <div class="loader-progress" id="loaderProgress"></div>
+  </div>
+
+  <div class="loader-status" id="loaderStatus">
+    BOOTING CORE...
+  </div>
+
+  <div class="loader-percent" id="loaderPercent">
+    0%
+  </div>
+
 </div>
 
-<canvas id="fx"></canvas>
-<div class="blob a"></div><div class="blob b"></div><div class="blob c"></div>
-<div class="noise"></div>
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
+<canvas id="particles"></canvas>
+<canvas id="blobCanvas"></canvas>
+
+<div class="aurora a1"></div>
+<div class="aurora a2"></div>
+<div class="aurora a3"></div>
+
+<div class="mouse-glow" id="mouseGlow"></div>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
 <header class="navbar">
+
   <nav class="nav">
-    <div class="logo"><b>AM</b> // ALONEMODDER</div>
-    <div class="status"><i></i>SYSTEM ONLINE</div>
-    <div class="nav-actions">
-      <button class="nav-btn" onclick="showToast('All systems operational ✓')">⚡ Status</button>
-      <button class="nav-btn" onclick="goStore()">Explore</button>
+
+    <div class="logo">
+      <b>AM</b> // ALONEMODDER
     </div>
+
+    <div class="online">
+      <i></i>
+      SYSTEM ONLINE
+    </div>
+
+    <div class="nav-actions">
+
+      <button
+        class="nav-btn"
+        id="notificationButton">
+        🔔
+      </button>
+
+      <button
+        class="nav-btn"
+        onclick="goStore()">
+        EXPLORE
+      </button>
+
+    </div>
+
   </nav>
+
 </header>
 
+<!-- =====================================================
+     NOTIFICATIONS
+===================================================== -->
+
+<div class="notification-panel" id="notificationPanel">
+
+  <div class="notification-head">
+    <h3>ALONEMODDER ALERTS</h3>
+    <span>● LIVE</span>
+  </div>
+
+  <div class="notification-item">
+
+    <div class="notification-icon">
+      ⚡
+    </div>
+
+    <div>
+      <strong>System Online</strong>
+      <p>Premium interface successfully initialized.</p>
+    </div>
+
+  </div>
+
+  <div class="notification-item">
+
+    <div class="notification-icon">
+      🟣
+    </div>
+
+    <div>
+      <strong>New Resources</strong>
+      <p>Latest resources are now available below.</p>
+    </div>
+
+  </div>
+
+  <div class="notification-item">
+
+    <div class="notification-icon">
+      🔥
+    </div>
+
+    <div>
+      <strong>ALONEMODDER</strong>
+      <p>Stay connected for future updates.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero reveal">
-  <!-- Images are OUTSIDE this folder, so ../ is intentional -->
-  <img src="../image.png" class="hero-img" alt="ALONEMODDER Banner"
-       onerror="this.style.display='none'">
-  <div class="hero-shade"></div><div class="hero-grid"></div>
+
+  <img
+    src="../image.png"
+    class="hero-image"
+    alt="ALONEMODDER Banner">
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-grid"></div>
 
   <div class="hero-content">
-    <div class="eyebrow">● ALONEMODDER • NEXT GENERATION</div>
-    <h1>ALONE<br>MODDER</h1>
-    <p>Premium purple resource station with a cinematic interface, live particles, smooth navigation and instant resource access.</p>
-    <div class="actions">
-      <a href="#store" class="btn">⚡ ENTER STORE</a>
-      <button class="btn alt" onclick="showToast('ALONEMODDER systems are online ✓')">◈ SYSTEM STATUS</button>
-      <button class="btn alt" onclick="showToast('Notifications are up to date ✓')">🔔 NOTIFICATIONS</button>
+
+    <div class="system-badge">
+      <i></i>
+      ALONEMODDER PREMIUM SYSTEM
     </div>
+
+    <h1>
+      ALONE<br>
+      MODDER
+    </h1>
+
+    <p>
+      Welcome to the ALONEMODDER premium distribution hub.
+      Explore applications, game resources and tools through
+      a futuristic purple interface.
+    </p>
+
+    <div class="hero-actions">
+
+      <a
+        href="#store"
+        class="neon-btn">
+        ⚡ EXPLORE MODS
+      </a>
+
+      <button
+        class="neon-btn secondary"
+        onclick="showToast('All ALONEMODDER systems operational ✓')">
+        ◈ SYSTEM STATUS
+      </button>
+
+    </div>
+
   </div>
+
 </section>
+
+<!-- =====================================================
+     PROFILE
+===================================================== -->
 
 <section class="profile reveal">
-  <div class="profile-left">
-    <div class="avatar">
-      <img src="../image3.png" alt="ALONEMODDER Profile" onerror="this.style.display='none'">
-    </div>
-    <div>
-      <h2>ALONEMODDER</h2>
-      <p>&gt;_ VIP DISTRIBUTION STATION</p>
-    </div>
+
+  <div class="avatar">
+
+    <img
+      src="../image3.png"
+      alt="ALONEMODDER Profile">
+
   </div>
 
-  <div class="notice">
-    <div class="notice-top"><span class="notice-dot"></span> LIVE NOTIFICATION</div>
-    <p id="noticeText">New resources are being synced. Keep checking the station for updates.</p>
+  <div>
+
+    <h2>ALONEMODDER</h2>
+
+    <p>
+      &gt;_ VIP MOD DISTRIBUTION NETWORK
+    </p>
+
   </div>
+
 </section>
+
+<!-- =====================================================
+     STATS
+===================================================== -->
 
 <section class="stats reveal">
-  <div class="stat"><strong data-number="128">0</strong><span>RESOURCES</span></div>
-  <div class="stat"><strong data-number="42">0</strong><span>UPDATES</span></div>
-  <div class="stat"><strong data-number="99">0</strong><span>UPTIME %</span></div>
-  <div class="stat"><strong data-number="24">0</strong><span>SYSTEMS</span></div>
+
+  <div class="stat">
+    <strong data-number="128">0</strong>
+    <span>RESOURCES</span>
+  </div>
+
+  <div class="stat">
+    <strong data-number="42">0</strong>
+    <span>UPDATES</span>
+  </div>
+
+  <div class="stat">
+    <strong data-number="99">0</strong>
+    <span>UPTIME %</span>
+  </div>
+
+  <div class="stat">
+    <strong data-number="24">0</strong>
+    <span>SYSTEMS</span>
+  </div>
+
 </section>
 
-<section class="store reveal" id="store">
+<!-- =====================================================
+     STORE
+===================================================== -->
+
+<section
+  class="container reveal"
+  id="store">
+
+  <!-- SIDEBAR -->
+
   <aside class="sidebar glass">
-    <div class="side-title">CHANNELS</div>
-    <button class="category active" data-filter="all">◈ All Resources</button>
-    <button class="category" data-filter="apk">◉ Applications</button>
-    <button class="category" data-filter="game">◇ Games</button>
-    <button class="category" data-filter="tool">⚙ Tools</button>
-    <button class="category" data-filter="premium">◆ Premium</button>
+
+    <div class="side-title">
+      MOD CATEGORIES
+    </div>
+
+    <button
+      class="category active"
+      data-filter="all">
+      ◈ All Resources
+    </button>
+
+    <button
+      class="category"
+      data-filter="apk">
+      ◉ Applications
+    </button>
+
+    <button
+      class="category"
+      data-filter="game">
+      ◇ Games
+    </button>
+
+    <button
+      class="category"
+      data-filter="tool">
+      ⚙ Tools
+    </button>
+
+    <button
+      class="category"
+      data-filter="premium">
+      ◆ Premium
+    </button>
+
   </aside>
 
+  <!-- CONTENT -->
+
   <main>
+
     <div class="search">
-      <span>⌕</span>
-      <input id="search" type="search" placeholder="Search ALONEMODDER resources..." autocomplete="off">
-    </div>
 
-    <div class="grid" id="grid">
+      <span class="search-icon">
+        ⌕
+      </span>
 
-      <article class="card" data-category="apk premium" data-name="CapCut Pro">
-        <div class="card-top"><div class="icon">🎬</div><div class="meta"><h3>CapCut Pro</h3><p>v10.5.0 • 145 MB</p></div></div>
-        <div class="tags"><span class="tag">PRO</span><span class="tag cyan">4K</span></div>
-        <button class="download" data-file="../CapCut_Pro.apk"><span class="progress"></span><span class="download-text">DOWNLOAD RESOURCE</span></button>
-      </article>
-
-      <article class="card" data-category="game" data-name="PUBG Mobile">
-        <div class="card-top"><div class="icon">🎮</div><div class="meta"><h3>PUBG Mobile</h3><p>Game Resource • Updated</p></div></div>
-        <div class="tags"><span class="tag">GAME</span><span class="tag cyan">UPDATE</span></div>
-        <button class="download" data-file="../PUBG_Mod.apk"><span class="progress"></span><span class="download-text">DOWNLOAD RESOURCE</span></button>
-      </article>
-
-      <article class="card" data-category="apk premium" data-name="Spotify Premium">
-        <div class="card-top"><div class="icon">🎵</div><div class="meta"><h3>Spotify Premium</h3><p>v8.9.10 • 85 MB</p></div></div>
-        <div class="tags"><span class="tag">PREMIUM</span><span class="tag cyan">AUDIO</span></div>
-        <button class="download" data-file="../Spotify_Mod.apk"><span class="progress"></span><span class="download-text">DOWNLOAD RESOURCE</span></button>
-      </article>
-
-      <article class="card" data-category="apk" data-name="Remini AI">
-        <div class="card-top"><div class="icon">📸</div><div class="meta"><h3>Remini AI</h3><p>v3.7.8 • 62 MB</p></div></div>
-        <div class="tags"><span class="tag">AI</span><span class="tag cyan">PHOTO</span></div>
-        <button class="download" data-file="../Remini_Mod.apk"><span class="progress"></span><span class="download-text">DOWNLOAD RESOURCE</span></button>
-      </article>
-
-      <article class="card" data-category="tool" data-name="Utility Toolkit">
-        <div class="card-top"><div class="icon">⚙️</div><div class="meta"><h3>Utility Toolkit</h3><p>Latest • Tool Resource</p></div></div>
-        <div class="tags"><span class="tag">TOOLS</span><span class="tag cyan">UTILITY</span></div>
-        <button class="download" data-file="../Utility_Toolkit.zip"><span class="progress"></span><span class="download-text">DOWNLOAD RESOURCE</span></button>
-      </article>
-
-      <article class="card" data-category="premium tool" data-name="Premium Pack">
-        <div class="card-top"><div class="icon">💎</div><div class="meta"><h3>Premium Pack</h3><p>VIP Resource Bundle</p></div></div>
-        <div class="tags"><span class="tag">VIP</span><span class="tag cyan">PACK</span></div>
-        <button class="download" data-file="../Premium_Pack.zip"><span class="progress"></span><span class="download-text">DOWNLOAD RESOURCE</span></button>
-      </article>
+      <input
+        id="search"
+        type="search"
+        placeholder="Search ALONEMODDER resources..."
+        autocomplete="off">
 
     </div>
 
-    <div class="empty" id="empty">No matching ALONEMODDER resources found.</div>
+    <div
+      class="grid"
+      id="grid">
+
+      <!-- =================================================
+           CARD 1
+      ================================================== -->
+
+      <article
+        class="card"
+        data-category="apk premium"
+        data-name="CapCut Pro">
+
+        <div class="card-top">
+
+          <div class="icon">
+            🎬
+          </div>
+
+          <div class="meta">
+
+            <h3>
+              CapCut Pro
+            </h3>
+
+            <p>
+              v10.5.0 • 145 MB
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="tags">
+
+          <span class="tag">
+            PRO
+          </span>
+
+          <span class="tag cyan">
+            4K
+          </span>
+
+          <span class="tag pink">
+            PREMIUM
+          </span>
+
+        </div>
+
+        <button
+          class="download"
+          data-file="../mods/CapCut_Pro.apk">
+
+          <span class="progress"></span>
+
+          <span class="download-text">
+            DOWNLOAD RESOURCE
+          </span>
+
+        </button>
+
+      </article>
+
+      <!-- =================================================
+           CARD 2
+      ================================================== -->
+
+      <article
+        class="card"
+        data-category="game"
+        data-name="PUBG Mobile">
+
+        <div class="card-top">
+
+          <div class="icon">
+            🎮
+          </div>
+
+          <div class="meta">
+
+            <h3>
+              PUBG Mobile
+            </h3>
+
+            <p>
+              Game Resource
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="tags">
+
+          <span class="tag">
+            GAME
+          </span>
+
+          <span class="tag cyan">
+            UPDATE
+          </span>
+
+        </div>
+
+        <button
+          class="download"
+          data-file="../mods/PUBG_Mod.apk">
+
+          <span class="progress"></span>
+
+          <span class="download-text">
+            DOWNLOAD RESOURCE
+          </span>
+
+        </button>
+
+      </article>
+
+      <!-- =================================================
+           CARD 3
+      ================================================== -->
+
+      <article
+        class="card"
+        data-category="apk premium"
+        data-name="Spotify Premium">
+
+        <div class="card-top">
+
+          <div class="icon">
+            🎵
+          </div>
+
+          <div class="meta">
+
+            <h3>
+              Spotify Premium
+            </h3>
+
+            <p>
+              v8.9.10 • 85 MB
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="tags">
+
+          <span class="tag">
+            PREMIUM
+          </span>
+
+          <span class="tag cyan">
+            AUDIO
+          </span>
+
+        </div>
+
+        <button
+          class="download"
+          data-file="../mods/Spotify_Mod.apk">
+
+          <span class="progress"></span>
+
+          <span class="download-text">
+            DOWNLOAD RESOURCE
+          </span>
+
+        </button>
+
+      </article>
+
+      <!-- =================================================
+           CARD 4
+      ================================================== -->
+
+      <article
+        class="card"
+        data-category="apk"
+        data-name="Remini AI">
+
+        <div class="card-top">
+
+          <div class="icon">
+            📸
+          </div>
+
+          <div class="meta">
+
+            <h3>
+              Remini AI
+            </h3>
+
+            <p>
+              v3.7.8 • 62 MB
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="tags">
+
+          <span class="tag">
+            AI
+          </span>
+
+          <span class="tag cyan">
+            PHOTO
+          </span>
+
+        </div>
+
+        <button
+          class="download"
+          data-file="../mods/Remini_Mod.apk">
+
+          <span class="progress"></span>
+
+          <span class="download-text">
+            DOWNLOAD RESOURCE
+          </span>
+
+        </button>
+
+      </article>
+
+      <!-- =================================================
+           CARD 5
+      ================================================== -->
+
+      <article
+        class="card"
+        data-category="tool"
+        data-name="Android Utility">
+
+        <div class="card-top">
+
+          <div class="icon">
+            ⚙️
+          </div>
+
+          <div class="meta">
+
+            <h3>
+              Android Utility
+            </h3>
+
+            <p>
+              Utility • Latest
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="tags">
+
+          <span class="tag">
+            TOOL
+          </span>
+
+          <span class="tag cyan">
+            UTILITY
+          </span>
+
+        </div>
+
+        <button
+          class="download"
+          data-file="../mods/Android_Utility.apk">
+
+          <span class="progress"></span>
+
+          <span class="download-text">
+            DOWNLOAD RESOURCE
+          </span>
+
+        </button>
+
+      </article>
+
+      <!-- =================================================
+           CARD 6
+      ================================================== -->
+
+      <article
+        class="card"
+        data-category="premium tool"
+        data-name="Premium Toolkit">
+
+        <div class="card-top">
+
+          <div class="icon">
+            💎
+          </div>
+
+          <div class="meta">
+
+            <h3>
+              Premium Toolkit
+            </h3>
+
+            <p>
+              VIP • Latest Build
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="tags">
+
+          <span class="tag pink">
+            VIP
+          </span>
+
+          <span class="tag">
+            TOOL
+          </span>
+
+        </div>
+
+        <button
+          class="download"
+          data-file="../mods/Premium_Toolkit.apk">
+
+          <span class="progress"></span>
+
+          <span class="download-text">
+            DOWNLOAD RESOURCE
+          </span>
+
+        </button>
+
+      </article>
+
+    </div>
+
+    <div
+      class="empty"
+      id="empty">
+      No matching ALONEMODDER resources found.
+    </div>
+
   </main>
+
 </section>
 
-<footer>ALONEMODDER // VIP MOD STATION • PURPLE CORE ONLINE</footer>
+<footer>
+  ALONEMODDER // VIP MOD DISTRIBUTION • SYSTEM ONLINE
+</footer>
 
-<div id="toast"><span class="toast-dot"></span><span id="toastText"></span></div>
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div id="toast">
+
+  <span class="toast-dot"></span>
+
+  <span id="toastText"></span>
+
+</div>
 
 <script>
-/* BOOT */
-const loader=document.getElementById("loader"),bar=document.getElementById("bootBar"),status=document.getElementById("bootStatus");
-const steps=["STARTING CORE...","LOADING PARTICLE ENGINE...","CALIBRATING PURPLE MATRIX...","SYNCING RESOURCES...","BUILDING INTERFACE...","SYSTEM READY ✓"];
-let n=0;
-const bootTimer=setInterval(()=>{
-  n=Math.min(n+1,steps.length-1);
-  status.textContent=steps[n];
-  bar.style.width=((n+1)/steps.length*100)+"%";
-},330);
 
-window.addEventListener("load",()=>{
-  setTimeout(()=>{
-    clearInterval(bootTimer);
-    bar.style.width="100%"; status.textContent="SYSTEM READY ✓";
+/* =====================================================
+   LOADER ENGINE
+===================================================== */
+
+const loader=document.getElementById("loader");
+const loaderStatus=document.getElementById("loaderStatus");
+const loaderProgress=document.getElementById("loaderProgress");
+const loaderPercent=document.getElementById("loaderPercent");
+
+const bootSteps=[
+  ["CONNECTING TO ALONEMODDER CORE...",12],
+  ["LOADING PURPLE PARTICLE ENGINE...",28],
+  ["INITIALIZING VISUAL MATRIX...",46],
+  ["SYNCING RESOURCE DATABASE...",64],
+  ["OPTIMIZING GLASS INTERFACE...",81],
+  ["FINALIZING SYSTEM...",94],
+  ["ALONEMODDER READY ✓",100]
+];
+
+let bootIndex=0;
+
+function runBoot(){
+
+  const [text,percent]=
+    bootSteps[bootIndex];
+
+  loaderStatus.textContent=text;
+  loaderProgress.style.width=percent+"%";
+  loaderPercent.textContent=percent+"%";
+
+  bootIndex++;
+
+  if(bootIndex<bootSteps.length){
+
+    setTimeout(
+      runBoot,
+      380
+    );
+
+  }else{
+
     setTimeout(()=>{
+
       loader.classList.add("hide");
-      document.querySelectorAll(".reveal").forEach((x,i)=>setTimeout(()=>x.classList.add("show"),i*100));
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((element,index)=>{
+
+          setTimeout(()=>{
+
+            element.classList.add("show");
+
+          },index*100);
+
+        });
+
       animateNumbers();
-    },350);
-  },1900);
-});
 
-/* PARTICLES + CONNECTIONS + MOUSE BURST */
-const canvas=document.getElementById("fx"),ctx=canvas.getContext("2d");
-let W=innerWidth,H=innerHeight;
-function resize(){W=innerWidth;H=innerHeight;canvas.width=W*devicePixelRatio;canvas.height=H*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
-resize();addEventListener("resize",resize);
+      showToast(
+        "ALONEMODDER system online ⚡"
+      );
 
-const mobile=innerWidth<700, count=mobile?55:105;
-const P=[];
-for(let i=0;i<count;i++)P.push({
-  x:Math.random()*W,y:Math.random()*H,
-  vx:(Math.random()-.5)*.45,vy:(Math.random()-.5)*.45,
-  r:Math.random()*1.7+.35,a:Math.random()*.55+.15
-});
-const mouse={x:-9999,y:-9999};
-addEventListener("mousemove",e=>{mouse.x=e.clientX;mouse.y=e.clientY});
-addEventListener("mouseleave",()=>{mouse.x=-9999;mouse.y=-9999});
+    },500);
+
+  }
+
+}
+
+setTimeout(runBoot,350);
+
+
+/* =====================================================
+   PARTICLE NETWORK
+===================================================== */
+
+const canvas=
+  document.getElementById("particles");
+
+const ctx=
+  canvas.getContext("2d");
+
+let width=
+  window.innerWidth;
+
+let height=
+  window.innerHeight;
+
+const mobile=
+  window.innerWidth<700;
+
+function resizeCanvas(){
+
+  width=window.innerWidth;
+  height=window.innerHeight;
+
+  canvas.width=width;
+  canvas.height=height;
+
+}
+
+resizeCanvas();
+
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
+
+const particleCount=
+  mobile ? 65 : 115;
+
+const particles=[];
+
+for(let i=0;i<particleCount;i++){
+
+  particles.push({
+
+    x:Math.random()*width,
+    y:Math.random()*height,
+
+    vx:(Math.random()-.5)*.42,
+    vy:(Math.random()-.5)*.42,
+
+    size:Math.random()*1.8+.35,
+
+    alpha:Math.random()*.55+.12
+
+  });
+
+}
+
+const mouse={
+  x:-9999,
+  y:-9999
+};
+
+window.addEventListener(
+  "mousemove",
+  event=>{
+
+    mouse.x=event.clientX;
+    mouse.y=event.clientY;
+
+  }
+);
+
+window.addEventListener(
+  "mouseleave",
+  ()=>{
+
+    mouse.x=-9999;
+    mouse.y=-9999;
+
+  }
+);
 
 function particleLoop(){
-  ctx.clearRect(0,0,W,H);
-  for(let i=0;i<P.length;i++){
-    const p=P[i];p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-    const dx=mouse.x-p.x,dy=mouse.y-p.y,d=Math.hypot(dx,dy);
-    if(d<145&&d>1){p.x-=dx/d*.14;p.y-=dy/d*.14}
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle=`rgba(199,125,255,${p.a})`;ctx.fill();
-    if(!mobile)for(let j=i+1;j<P.length;j++){
-      const q=P[j],dd=Math.hypot(p.x-q.x,p.y-q.y);
-      if(dd<105){
-        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
-        ctx.strokeStyle=`rgba(157,78,221,${(1-dd/105)*.18})`;ctx.lineWidth=.55;ctx.stroke();
-      }
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+  for(
+    let i=0;
+    i<particles.length;
+    i++
+  ){
+
+    const p=particles[i];
+
+    p.x+=p.vx;
+    p.y+=p.vy;
+
+    if(p.x<0)p.x=width;
+    if(p.x>width)p.x=0;
+    if(p.y<0)p.y=height;
+    if(p.y>height)p.y=0;
+
+    const dx=mouse.x-p.x;
+    const dy=mouse.y-p.y;
+
+    const distance=
+      Math.hypot(dx,dy);
+
+    if(distance<170){
+
+      const force=
+        (170-distance)/170;
+
+      p.vx-=
+        dx/distance*
+        force*
+        .025;
+
+      p.vy-=
+        dy/distance*
+        force*
+        .025;
+
     }
+
+    p.vx*=.999;
+    p.vy*=.999;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      p.x,
+      p.y,
+      p.size,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle=
+      `rgba(199,125,255,${p.alpha})`;
+
+    ctx.fill();
+
+    if(!mobile){
+
+      for(
+        let j=i+1;
+        j<particles.length;
+        j++
+      ){
+
+        const q=particles[j];
+
+        const d=Math.hypot(
+          p.x-q.x,
+          p.y-q.y
+        );
+
+        if(d<105){
+
+          ctx.beginPath();
+
+          ctx.moveTo(
+            p.x,
+            p.y
+          );
+
+          ctx.lineTo(
+            q.x,
+            q.y
+          );
+
+          ctx.strokeStyle=
+            `rgba(
+              157,
+              78,
+              221,
+              ${(1-d/105)*.18}
+            )`;
+
+          ctx.lineWidth=.5;
+
+          ctx.stroke();
+
+        }
+
+      }
+
+    }
+
   }
-  requestAnimationFrame(particleLoop);
+
+  requestAnimationFrame(
+    particleLoop
+  );
+
 }
+
 particleLoop();
 
-/* CLICK PARTICLE BURST */
-addEventListener("click",e=>{
-  if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
-  const sparks=[];
-  for(let i=0;i<13;i++)sparks.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*5,vy:(Math.random()-.5)*5,life:1});
-  function burst(){
-    sparks.forEach(s=>{
-      s.x+=s.vx;s.y+=s.vy;s.vx*=.96;s.vy*=.96;s.life-=.035;
-      ctx.beginPath();ctx.arc(s.x,s.y,1.5,0,Math.PI*2);
-      ctx.fillStyle=`rgba(199,125,255,${Math.max(0,s.life)})`;ctx.fill();
-    });
-    if(sparks.some(s=>s.life>0))requestAnimationFrame(burst);
+
+/* =====================================================
+   PURPLE BLOB PARTICLES
+===================================================== */
+
+const blobCanvas=
+  document.getElementById("blobCanvas");
+
+const bctx=
+  blobCanvas.getContext("2d");
+
+function resizeBlob(){
+
+  blobCanvas.width=
+    window.innerWidth;
+
+  blobCanvas.height=
+    window.innerHeight;
+
+}
+
+resizeBlob();
+
+window.addEventListener(
+  "resize",
+  resizeBlob
+);
+
+const blobs=[];
+
+for(let i=0;i<(mobile?7:12);i++){
+
+  blobs.push({
+
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+
+    r:Math.random()*5+2,
+
+    vx:(Math.random()-.5)*.25,
+    vy:(Math.random()-.5)*.25,
+
+    pulse:Math.random()*Math.PI*2
+
+  });
+
+}
+
+function blobLoop(time){
+
+  bctx.clearRect(
+    0,
+    0,
+    blobCanvas.width,
+    blobCanvas.height
+  );
+
+  blobs.forEach(blob=>{
+
+    blob.x+=blob.vx;
+    blob.y+=blob.vy;
+
+    blob.pulse+=.015;
+
+    if(blob.x<0||
+       blob.x>blobCanvas.width)
+      blob.vx*=-1;
+
+    if(blob.y<0||
+       blob.y>blobCanvas.height)
+      blob.vy*=-1;
+
+    const radius=
+      blob.r+
+      Math.sin(blob.pulse)*2;
+
+    const gradient=
+      bctx.createRadialGradient(
+        blob.x,
+        blob.y,
+        0,
+        blob.x,
+        blob.y,
+        radius*12
+      );
+
+    gradient.addColorStop(
+      0,
+      "rgba(199,125,255,.38)"
+    );
+
+    gradient.addColorStop(
+      .3,
+      "rgba(157,78,221,.14)"
+    );
+
+    gradient.addColorStop(
+      1,
+      "rgba(157,78,221,0)"
+    );
+
+    bctx.fillStyle=gradient;
+
+    bctx.beginPath();
+
+    bctx.arc(
+      blob.x,
+      blob.y,
+      radius*12,
+      0,
+      Math.PI*2
+    );
+
+    bctx.fill();
+
+  });
+
+  requestAnimationFrame(
+    blobLoop
+  );
+
+}
+
+blobLoop();
+
+
+/* =====================================================
+   MOUSE GLOW
+===================================================== */
+
+const mouseGlow=
+  document.getElementById(
+    "mouseGlow"
+  );
+
+if(!mobile){
+
+  window.addEventListener(
+    "mousemove",
+    event=>{
+
+      mouseGlow.style.left=
+        event.clientX+"px";
+
+      mouseGlow.style.top=
+        event.clientY+"px";
+
+    }
+  );
+
+}else{
+
+  mouseGlow.style.display="none";
+
+}
+
+
+/* =====================================================
+   NOTIFICATION PANEL
+===================================================== */
+
+const notificationButton=
+  document.getElementById(
+    "notificationButton"
+  );
+
+const notificationPanel=
+  document.getElementById(
+    "notificationPanel"
+  );
+
+notificationButton.addEventListener(
+  "click",
+  event=>{
+
+    event.stopPropagation();
+
+    notificationPanel.classList.toggle(
+      "show"
+    );
+
   }
-  burst();
-});
+);
 
-/* RIPPLE BUTTONS */
-document.querySelectorAll(".btn,.nav-btn,.category").forEach(btn=>{
-  btn.addEventListener("click",e=>{
-    const r=document.createElement("span");r.className="ripple";
-    const rect=btn.getBoundingClientRect(),size=Math.max(rect.width,rect.height);
-    r.style.width=r.style.height=size+"px";
-    r.style.left=(e.clientX-rect.left-size/2)+"px";r.style.top=(e.clientY-rect.top-size/2)+"px";
-    btn.appendChild(r);setTimeout(()=>r.remove(),700);
-  });
-});
+document.addEventListener(
+  "click",
+  event=>{
 
-/* FILTER */
-const cards=[...document.querySelectorAll(".card")],search=document.getElementById("search"),empty=document.getElementById("empty");
-let filter="all";
-function update(){
-  const q=search.value.trim().toLowerCase();let visible=0;
-  cards.forEach(c=>{
-    const name=c.dataset.name.toLowerCase(),cats=c.dataset.category.toLowerCase();
-    const ok=(!q||name.includes(q)||cats.includes(q))&&(filter==="all"||cats.includes(filter));
-    c.style.display=ok?"":"none";if(ok)visible++;
-  });
-  empty.classList.toggle("show",visible===0);
-}
-search.addEventListener("input",update);
-document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>{
-  document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");filter=b.dataset.filter;update();
-}));
+    if(
+      !notificationPanel.contains(event.target) &&
+      event.target!==notificationButton
+    ){
 
-/* 3D CARDS */
-if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
-  cards.forEach(c=>{
-    c.addEventListener("mousemove",e=>{
-      if(innerWidth<800)return;
-      const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
-      c.style.transform=`perspective(750px) rotateX(${((y/r.height)-.5)*-5}deg) rotateY(${((x/r.width)-.5)*5}deg) translateY(-3px)`;
-    });
-    c.addEventListener("mouseleave",()=>c.style.transform="");
-  });
-}
+      notificationPanel.classList.remove(
+        "show"
+      );
 
-/* DOWNLOADS */
-document.querySelectorAll(".download").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    if(btn.dataset.loading==="1")return;
-    btn.dataset.loading="1";
-    const file=btn.dataset.file,prog=btn.querySelector(".progress"),text=btn.querySelector(".download-text");
-    let v=0;text.textContent="CONNECTING...";
-    const t=setInterval(()=>{
-      v+=Math.floor(Math.random()*12)+8;
-      if(v>=100){
-        v=100;clearInterval(t);prog.style.width="100%";text.textContent="OPENING RESOURCE ✓";
-        const a=document.createElement("a");a.href=file;a.download="";document.body.appendChild(a);a.click();a.remove();
-        showToast("Resource request started ✓");
-        setTimeout(()=>{prog.style.width="0";text.textContent="DOWNLOAD RESOURCE";btn.dataset.loading="0"},1500);
-      }else{prog.style.width=v+"%";text.textContent=`PREPARING ${v}%`}
-    },130);
-  });
-});
+    }
 
-/* TOAST */
-let toastTimer;
-function showToast(msg){
-  const t=document.getElementById("toast");document.getElementById("toastText").textContent=msg;
-  t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2800);
-}
+  }
+);
 
-/* COUNTERS */
-function animateNumbers(){
-  document.querySelectorAll("[data-number]").forEach(el=>{
-    const target=+el.dataset.number;let v=0;
-    const t=setInterval(()=>{v+=Math.max(1,Math.ceil(target/35));if(v>=target){v=target;clearInterval(t)}el.textContent=v},28);
-  });
-}
 
-/* NOTIFICATION ROTATION */
-const notices=[
-  "New resources are being synced. Keep checking the station for updates.",
-  "ALONEMODDER interface has been optimized for mobile devices.",
-  "Purple Core is online — resource navigation is ready.",
-  "System notification: all interface modules are operational."
+/* =====================================================
+   SEARCH + CATEGORY
+===================================================== */
+
+const cards=[
+  ...document.querySelectorAll(".card")
 ];
-let ni=0;
-setInterval(()=>{
-  ni=(ni+1)%notices.length;
-  const el=document.getElementById("noticeText");
-  el.style.opacity="0";
-  setTimeout(()=>{el.textContent=notices[ni];el.style.opacity="1"},180);
-},4500);
 
-function goStore(){document.getElementById("store").scrollIntoView({behavior:"smooth",block:"start"})}
-document.addEventListener("keydown",e=>{
-  if(e.key==="/"&&document.activeElement!==search){e.preventDefault();search.focus()}
-  if(e.key==="Escape"){search.value="";update();search.blur()}
+const categories=[
+  ...document.querySelectorAll(".category")
+];
+
+const search=
+  document.getElementById("search");
+
+const empty=
+  document.getElementById("empty");
+
+let activeFilter="all";
+
+function updateCards(){
+
+  const query=
+    search.value
+      .trim()
+      .toLowerCase();
+
+  let visible=0;
+
+  cards.forEach(card=>{
+
+    const name=
+      card.dataset.name
+        .toLowerCase();
+
+    const category=
+      card.dataset.category
+        .toLowerCase();
+
+    const searchMatch=
+      !query ||
+      name.includes(query) ||
+      category.includes(query);
+
+    const categoryMatch=
+      activeFilter==="all" ||
+      category.includes(
+        activeFilter
+      );
+
+    const show=
+      searchMatch &&
+      categoryMatch;
+
+    card.style.display=
+      show ? "" : "none";
+
+    if(show)visible++;
+
+  });
+
+  empty.classList.toggle(
+    "show",
+    visible===0
+  );
+
+}
+
+search.addEventListener(
+  "input",
+  updateCards
+);
+
+categories.forEach(button=>{
+
+  button.addEventListener(
+    "click",
+    ()=>{
+
+      categories.forEach(
+        item=>
+          item.classList.remove(
+            "active"
+          )
+      );
+
+      button.classList.add(
+        "active"
+      );
+
+      activeFilter=
+        button.dataset.filter;
+
+      updateCards();
+
+    }
+  );
+
 });
-setTimeout(()=>showToast("ALONEMODDER particle core online ⚡"),3300);
+
+
+/* =====================================================
+   3D CARD EFFECT
+===================================================== */
+
+if(
+  !window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches
+){
+
+  cards.forEach(card=>{
+
+    card.addEventListener(
+      "mousemove",
+      event=>{
+
+        if(window.innerWidth<800)
+          return;
+
+        const rect=
+          card.getBoundingClientRect();
+
+        const x=
+          event.clientX-
+          rect.left;
+
+        const y=
+          event.clientY-
+          rect.top;
+
+        const rotateX=
+          ((y/rect.height)-.5)*-5;
+
+        const rotateY=
+          ((x/rect.width)-.5)*5;
+
+        card.style.transform=
+          `perspective(700px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateY(-3px)`;
+
+      }
+    );
+
+    card.addEventListener(
+      "mouseleave",
+      ()=>{
+
+        card.style.transform="";
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =====================================================
+   DOWNLOAD SYSTEM
+===================================================== */
+
+document
+  .querySelectorAll(".download")
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        if(
+          button.dataset.loading==="true"
+        )
+          return;
+
+        const file=
+          button.dataset.file;
+
+        button.dataset.loading=
+          "true";
+
+        const progress=
+          button.querySelector(
+            ".progress"
+          );
+
+        const text=
+          button.querySelector(
+            ".download-text"
+          );
+
+        let value=0;
+
+        text.textContent=
+          "CONNECTING...";
+
+        const timer=
+          setInterval(()=>{
+
+            value+=
+              Math.floor(
+                Math.random()*11
+              )+7;
+
+            if(value>=100){
+
+              value=100;
+
+              clearInterval(timer);
+
+              progress.style.width=
+                "100%";
+
+              text.textContent=
+                "DOWNLOAD READY ✓";
+
+              downloadFile(file);
+
+              setTimeout(()=>{
+
+                progress.style.width=
+                  "0%";
+
+                text.textContent=
+                  "DOWNLOAD RESOURCE";
+
+                button.dataset.loading=
+                  "false";
+
+              },1800);
+
+            }else{
+
+              progress.style.width=
+                value+"%";
+
+              text.textContent=
+                `PREPARING ${value}%`;
+
+            }
+
+          },120);
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   DOWNLOAD
+===================================================== */
+
+function downloadFile(file){
+
+  const link=
+    document.createElement("a");
+
+  link.href=file;
+  link.download="";
+
+  link.target="_blank";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  showToast(
+    "Download started ✓"
+  );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast=
+    document.getElementById(
+      "toast"
+    );
+
+  const toastText=
+    document.getElementById(
+      "toastText"
+    );
+
+  toastText.textContent=
+    message;
+
+  toast.classList.add("show");
+
+  clearTimeout(
+    toastTimer
+  );
+
+  toastTimer=
+    setTimeout(()=>{
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },2800);
+
+}
+
+
+/* =====================================================
+   COUNTERS
+===================================================== */
+
+function animateNumbers(){
+
+  document
+    .querySelectorAll(
+      "[data-number]"
+    )
+    .forEach(element=>{
+
+      const target=
+        Number(
+          element.dataset.number
+        );
+
+      let value=0;
+
+      const increment=
+        Math.max(
+          1,
+          Math.ceil(target/35)
+        );
+
+      const timer=
+        setInterval(()=>{
+
+          value+=increment;
+
+          if(value>=target){
+
+            value=target;
+
+            clearInterval(
+              timer
+            );
+
+          }
+
+          element.textContent=
+            value;
+
+        },30);
+
+    });
+
+}
+
+
+/* =====================================================
+   STORE SCROLL
+===================================================== */
+
+function goStore(){
+
+  document
+    .getElementById("store")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      event.key==="/" &&
+      document.activeElement!==search
+    ){
+
+      event.preventDefault();
+
+      search.focus();
+
+    }
+
+    if(event.key==="Escape"){
+
+      search.value="";
+
+      activeFilter="all";
+
+      categories.forEach(
+        button=>
+          button.classList.remove(
+            "active"
+          )
+      );
+
+      categories[0]
+        .classList.add("active");
+
+      updateCards();
+
+      search.blur();
+
+      notificationPanel
+        .classList.remove(
+          "show"
+        );
+
+    }
+
+  }
+);
+
 </script>
+
 </body>
 </html>
