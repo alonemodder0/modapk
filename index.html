@@ -7,14 +7,14 @@
   <style>
     :root {
       --bg-dark: #05020a;
-      --panel-bg: rgba(15, 10, 30, 0.6);
+      --panel-bg: rgba(15, 10, 30, 0.65);
       --panel-border: rgba(157, 78, 221, 0.4);
       --purple-main: #9d4edd;
       --purple-light: #c77dff;
       --purple-neon: #e0aaff;
       --text-main: #ffffff;
       --text-muted: #a09eb0;
-      --glass-blur: blur(12px);
+      --glass-blur: blur(14px);
     }
 
     * {
@@ -31,7 +31,7 @@
       overflow-x: hidden;
     }
 
-    /* Particle Background Canvas */
+    /* Particle Canvas */
     #particle-canvas {
       position: fixed;
       top: 0;
@@ -42,12 +42,7 @@
       pointer-events: none;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-dark); }
-    ::-webkit-scrollbar-thumb { background: var(--purple-main); border-radius: 4px; }
-
-    /* Banner & Header */
+    /* Banner */
     .banner-container {
       width: 100%;
       height: 250px;
@@ -118,7 +113,6 @@
       gap: 25px;
     }
 
-    /* Sidebar Panels */
     .panel {
       background: var(--panel-bg);
       backdrop-filter: var(--glass-blur);
@@ -149,7 +143,7 @@
       transform: translateX(5px);
     }
 
-    /* Main Mod Area */
+    /* Main Area */
     .search-bar {
       display: flex;
       gap: 10px;
@@ -168,7 +162,7 @@
     }
     .search-bar input:focus { border-color: var(--purple-neon); box-shadow: 0 0 15px rgba(157, 78, 221, 0.3); }
 
-    /* Mod Cards Grid */
+    /* Mod Grid */
     .mod-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -192,7 +186,7 @@
     .mod-card:hover {
       transform: translateY(-5px);
       border-color: var(--purple-main);
-      box-shadow: 0 10px 25px rgba(157, 78, 221, 0.2);
+      box-shadow: 0 10px 25px rgba(157, 78, 221, 0.25);
     }
     .mod-card:hover::before { left: 150%; }
 
@@ -219,7 +213,7 @@
     }
     .tag.premium { background: rgba(255, 215, 0, 0.1); color: #ffd700; border-color: rgba(255, 215, 0, 0.3); }
 
-    /* Mast Download Button */
+    /* Real Interactive Download Link Button */
     .download-btn {
       width: 100%;
       padding: 12px;
@@ -230,25 +224,22 @@
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      text-decoration: none;
       position: relative;
       overflow: hidden;
+      transition: all 0.3s ease;
     }
     .download-btn:hover {
       box-shadow: 0 0 20px var(--purple-main);
       transform: scale(1.02);
     }
-    .download-btn:active { transform: scale(0.95); }
-    
-    /* Loading Animation inside Button */
     .download-btn .progress-bar {
       position: absolute; top: 0; left: 0; height: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      width: 0%; transition: width 2s ease-in-out;
+      background: rgba(255, 255, 255, 0.25);
+      width: 0%; transition: width 0.3s ease;
     }
 
     @media (max-width: 900px) {
@@ -262,13 +253,13 @@
   <!-- Particle JS Background -->
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Banner -->
+  <!-- Banner (image.png) -->
   <div class="banner-container">
     <img src="image.png" alt="ALONEMODDER Banner" class="banner-img">
     <div class="banner-overlay"></div>
   </div>
 
-  <!-- Profile Header -->
+  <!-- Profile Bar (image3.png) -->
   <div class="profile-bar">
     <div class="avatar-frame">
       <img src="image3.png" alt="AM Profile Icon" class="avatar-img">
@@ -282,7 +273,7 @@
   <!-- Layout -->
   <div class="main-container">
     
-    <!-- Sidebar -->
+    <!-- Sidebar (image2.png) -->
     <aside class="panel">
       <img src="image2.png" alt="ALONEMODDER Full Logo" class="brand-logo-full">
       <ul class="nav-links">
@@ -294,20 +285,20 @@
       </ul>
     </aside>
 
-    <!-- Main Mod Area -->
+    <!-- Main Section -->
     <main>
       <div class="search-bar">
-        <input type="text" placeholder="Search for Mods, APKs, Scripts...">
+        <input type="text" id="searchInput" onkeyup="filterMods()" placeholder="Search for Mods, APKs, Scripts...">
       </div>
 
-      <div class="mod-grid">
+      <div class="mod-grid" id="modGrid">
         
         <!-- App Card 1 -->
         <div class="mod-card">
           <div class="mod-header">
             <div class="mod-icon">🎬</div>
             <div class="mod-info">
-              <h3>CapCut Pro</h3>
+              <h3>CapCut Pro Mod</h3>
               <p>v10.5.0 | 145 MB</p>
             </div>
           </div>
@@ -315,10 +306,10 @@
             <span class="tag premium">Premium Unlocked</span>
             <span class="tag">No Watermark</span>
           </div>
-          <button class="download-btn" onclick="startDownload(this)">
+          <a href="#" class="download-btn" onclick="triggerDownload(event, this, 'CapCut_Pro_Mod.apk')">
             <span class="progress-bar"></span>
             <span class="btn-text">Download APK</span>
-          </button>
+          </a>
         </div>
 
         <!-- App Card 2 -->
@@ -335,10 +326,10 @@
             <span class="tag">No Recoil</span>
             <span class="tag">Anti-Ban</span>
           </div>
-          <button class="download-btn" onclick="startDownload(this)">
+          <a href="#" class="download-btn" onclick="triggerDownload(event, this, 'PUBG_Mobile_Mod.apk')">
             <span class="progress-bar"></span>
             <span class="btn-text">Download APK</span>
-          </button>
+          </a>
         </div>
 
         <!-- App Card 3 -->
@@ -354,10 +345,10 @@
             <span class="tag premium">No Ads</span>
             <span class="tag">Extreme Audio</span>
           </div>
-          <button class="download-btn" onclick="startDownload(this)">
+          <a href="#" class="download-btn" onclick="triggerDownload(event, this, 'Spotify_Premium.apk')">
             <span class="progress-bar"></span>
             <span class="btn-text">Download APK</span>
-          </button>
+          </a>
         </div>
 
         <!-- App Card 4 -->
@@ -370,122 +361,101 @@
             </div>
           </div>
           <div class="tags">
-            <span class="tag">Unlimited Pro Cards</span>
+            <span class="tag">Unlimited Pro</span>
             <span class="tag premium">4K Export</span>
           </div>
-          <button class="download-btn" onclick="startDownload(this)">
+          <a href="#" class="download-btn" onclick="triggerDownload(event, this, 'Remini_AI_Mod.apk')">
             <span class="progress-bar"></span>
             <span class="btn-text">Download APK</span>
-          </button>
+          </a>
         </div>
 
       </div>
     </main>
   </div>
 
-  <!-- Scripts -->
   <script>
-    // 1. Chrome-like Download Button Animation Logic
-    function startDownload(btn) {
-      if(btn.classList.contains('downloading')) return;
-      
-      const textSpan = btn.querySelector('.btn-text');
-      const progressBar = btn.querySelector('.progress-bar');
-      
-      btn.classList.add('downloading');
-      textSpan.innerText = "Connecting...";
-      progressBar.style.width = "10%";
-
-      setTimeout(() => {
-        textSpan.innerText = "Downloading (24%)...";
-        progressBar.style.width = "24%";
-      }, 800);
-
-      setTimeout(() => {
-        textSpan.innerText = "Downloading (78%)...";
-        progressBar.style.width = "78%";
-      }, 1800);
-
-      setTimeout(() => {
-        textSpan.innerText = "File Saved ✓";
-        progressBar.style.width = "100%";
-        progressBar.style.background = "rgba(0, 255, 100, 0.3)"; // Green finish
-      }, 2500);
+    // Live Search Filter Functionality
+    function filterMods() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.querySelectorAll('.mod-card');
+      cards.forEach(card => {
+        let title = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = title.includes(input) ? 'block' : 'none';
+      });
     }
 
-    // 2. Cyber Purple Particle Network Animation
+    // Interactive Animated File Downloading Logic
+    function triggerDownload(e, btn, fileUrl) {
+      e.preventDefault();
+      if(btn.getAttribute('data-downloading') === 'true') return;
+      btn.setAttribute('data-downloading', 'true');
+
+      let progressBar = btn.querySelector('.progress-bar');
+      let btnText = btn.querySelector('.btn-text');
+      
+      let percent = 0;
+      btnText.innerText = "Starting...";
+
+      let interval = setInterval(() => {
+        percent += Math.floor(Math.random() * 15) + 5;
+        if(percent >= 100) {
+          percent = 100;
+          clearInterval(interval);
+          progressBar.style.width = "100%";
+          progressBar.style.background = "rgba(0, 255, 128, 0.4)";
+          btnText.innerText = "Downloading Started ✓";
+
+          // Triggers browser download popup / link redirection
+          const a = document.createElement('a');
+          a.href = fileUrl;
+          a.download = fileUrl;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          progressBar.style.width = percent + "%";
+          btnText.innerText = `Downloading (${percent}%)...`;
+        }
+      }, 250);
+    }
+
+    // Particle Animation Canvas logic
     const canvas = document.getElementById("particle-canvas");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let particlesArray = [];
-    const colors = ['#9d4edd', '#c77dff', '#e0aaff', '#5a189a'];
-
+    let particles = [];
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.8;
+        this.speedY = (Math.random() - 0.5) * 0.8;
       }
       update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.005;
+        this.x += this.speedX; this.y += this.speedY;
         if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
       draw() {
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = '#9d4edd';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    function init() {
-      particlesArray = [];
-      let numberOfParticles = (canvas.height * canvas.width) / 10000;
-      for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
+    for (let i = 0; i < 50; i++) particles.push(new Particle());
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-        
-        // Connect lines
-        for (let j = i; j < particlesArray.length; j++) {
-          const dx = particlesArray[i].x - particlesArray[j].x;
-          const dy = particlesArray[i].y - particlesArray[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 100) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(157, 78, 221, ${1 - distance/100})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-            ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-            ctx.stroke();
-          }
-        }
-      }
+      particles.forEach(p => { p.update(); p.draw(); });
       requestAnimationFrame(animate);
     }
-
-    init();
     animate();
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      init();
-    });
   </script>
 </body>
 </html>
