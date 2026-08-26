@@ -1,979 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALONEMODDER 4K | Next-Gen Cyber Hub</title>
-    <!-- FontAwesome & Google Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-color: #02040a;
-            --card-bg: rgba(10, 15, 30, 0.45);
-            --primary: #00f0ff;
-            --secondary: #7000ff;
-            --accent: #ff0055;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --neon-glow: 0 0 25px rgba(0, 240, 255, 0.6), 0 0 50px rgba(0, 240, 255, 0.3);
-            --pink-glow: 0 0 25px rgba(255, 0, 85, 0.6), 0 0 50px rgba(255, 0, 85, 0.3);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALONEMODDER | Dashboard</title>
+  <style>
+    :root {
+      --bg-dark: #080612;
+      --panel-bg: rgba(18, 12, 38, 0.75);
+      --purple-primary: #7b2cbf;
+      --purple-glow: #9d4edd;
+      --purple-accent: #3a0ca3;
+      --text-main: #ffffff;
+      --text-muted: #a0a0c0;
+      --border-color: rgba(157, 78, 221, 0.3);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-        /* 3D Kinetic Grid Canvas */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-        }
+    /* Banner Header */
+    .banner-container {
+      width: 100%;
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 2px solid var(--purple-glow);
+      box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+    }
 
-        /* Ambient Scanning Overlay */
-        .scanlines {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            background-size: 100% 4px, 6px 100%;
-            z-index: 2;
-            pointer-events: none;
-            opacity: 0.6;
-        }
+    .banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
 
-        /* Preloader */
-        #preloader {
-            position: fixed;
-            inset: 0;
-            background: #02040a;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
+    /* Header Profile */
+    .profile-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+      padding-bottom: 20px;
+    }
 
-        .loader-ring {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            border-top-color: var(--primary);
-            border-bottom-color: var(--accent);
-            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-            position: relative;
-            box-shadow: var(--neon-glow);
-        }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-        .loader-ring::before {
-            content: '';
-            position: absolute;
-            inset: 10px;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            border-left-color: var(--secondary);
-            border-right-color: var(--primary);
-            animation: spin-reverse 0.9s linear infinite;
-        }
+    .avatar-frame {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, #9d4edd, #3a0ca3);
+      box-shadow: 0 0 15px var(--purple-glow);
+    }
 
-        .loader-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            margin-top: 30px;
-            letter-spacing: 5px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            animation: glitchText 2s infinite alternate;
-        }
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #000;
+    }
 
-        .progress-bar-container {
-            width: 280px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            margin-top: 18px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-        }
+    .user-details h1 {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px var(--purple-glow);
+    }
 
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--primary), var(--accent));
-            box-shadow: 0 0 15px var(--primary);
-            transition: width 0.1s linear;
-        }
+    .user-details p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-family: monospace;
+    }
 
-        /* Layout Structure */
-        .app-container {
-            position: relative;
-            z-index: 3;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    /* Grid Layout */
+    .main-container {
+      max-width: 1200px;
+      width: 90%;
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      flex-grow: 1;
+    }
 
-        /* Header / Navbar */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 8%;
-            background: rgba(2, 4, 10, 0.65);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    /* Sidebar Panel */
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 0 10px rgba(123, 44, 191, 0.1);
+    }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
-            letter-spacing: 2px;
-        }
+    .brand-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
 
-        .logo span {
-            color: var(--accent);
-            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
-        }
+    .brand-logo-full {
+      width: 100%;
+      max-width: 200px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
 
-        .search-box {
-            position: relative;
-            width: 340px;
-        }
+    .nav-links {
+      list-style: none;
+      margin-top: 20px;
+    }
 
-        .search-box input {
-            width: 100%;
-            padding: 12px 20px 12px 45px;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 30px;
-            color: #fff;
-            outline: none;
-            font-family: inherit;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    .nav-links li a {
+      color: var(--text-main);
+      text-decoration: none;
+      display: block;
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
 
-        .search-box input:focus {
-            border-color: var(--primary);
-            box-shadow: var(--neon-glow);
-            background: rgba(15, 23, 42, 0.9);
-        }
+    .nav-links li a:hover, .nav-links li a.active {
+      background: rgba(157, 78, 221, 0.15);
+      border-left: 3px solid var(--purple-glow);
+      box-shadow: 0 0 10px rgba(157, 78, 221, 0.2);
+    }
 
-        .search-box i {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            transition: 0.3s;
-        }
+    /* Main Content */
+    .content-header {
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 90px 20px 40px;
-            position: relative;
-        }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
 
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(180deg, #ffffff 20%, var(--primary) 70%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            text-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
-        }
+    .stat-card {
+      background: rgba(30, 20, 60, 0.5);
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
 
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto;
-            letter-spacing: 1px;
-        }
+    .stat-card h3 {
+      font-size: 2rem;
+      color: var(--purple-glow);
+      text-shadow: 0 0 8px var(--purple-glow);
+    }
 
-        /* Mod Cards Grid */
-        .main-content {
-            padding: 40px 8%;
-            flex-grow: 1;
-        }
+    .stat-card p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 5px;
+    }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 35px;
-            perspective: 1000px;
-        }
-
-        /* 3D Tilt Cyber Glass Card */
-        .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid rgba(0, 240, 255, 0.15);
-            backdrop-filter: blur(16px);
-            overflow: hidden;
-            transition: transform 0.15s ease-out, border-color 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.15), transparent 40%);
-            border-radius: inherit;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 2;
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--neon-glow), inset 0 0 20px rgba(0, 240, 255, 0.15);
-        }
-
-        .card-img-wrapper {
-            position: relative;
-            height: 210px;
-            overflow: hidden;
-            transform: translateZ(20px);
-        }
-
-        .card-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .card:hover .card-img-wrapper img {
-            transform: scale(1.12);
-        }
-
-        .badge-mod {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            box-shadow: var(--pink-glow);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transform: translateZ(30px);
-        }
-
-        .card-body {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            transform: translateZ(25px);
-        }
-
-        .card-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .card-info {
-            display: flex;
-            gap: 15px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-        }
-
-        .card-info span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .mod-features {
-            list-style: none;
-            margin-bottom: 22px;
-            flex-grow: 1;
-        }
-
-        .mod-features li {
-            font-size: 0.95rem;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mod-features li i {
-            color: var(--primary);
-            font-size: 0.85rem;
-            text-shadow: 0 0 8px var(--primary);
-        }
-
-        /* Particle Explosion & Neon Button */
-        .btn-particle-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .btn-particle {
-            position: relative;
-            width: 100%;
-            padding: 14px 20px;
-            border: 1px solid rgba(0, 240, 255, 0.4);
-            outline: none;
-            background: linear-gradient(90deg, #00f0ff 0%, #7000ff 100%);
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 1.5px;
-            border-radius: 10px;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
-        }
-
-        .btn-particle::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: rotate(30deg) translateY(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .btn-particle:hover::after {
-            transform: rotate(30deg) translateY(100%);
-        }
-
-        .btn-particle:hover {
-            box-shadow: var(--neon-glow);
-            transform: translateY(-2px);
-            border-color: #fff;
-        }
-
-        .btn-particle:active {
-            transform: scale(0.96);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 35px;
-            border-top: 1px solid rgba(0, 240, 255, 0.15);
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 50px;
-            background: rgba(2, 4, 10, 0.95);
-            letter-spacing: 1px;
-        }
-
-        /* Holographic Dynamic Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(2, 4, 10, 0.85);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-box {
-            background: rgba(10, 15, 30, 0.9);
-            border: 1px solid var(--primary);
-            box-shadow: var(--neon-glow);
-            width: 90%;
-            max-width: 480px;
-            border-radius: 20px;
-            padding: 35px;
-            text-align: center;
-            position: relative;
-            transform: scale(0.8) translateY(40px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-box h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .modal-box p {
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            font-size: 1.05rem;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .modal-close:hover {
-            color: var(--accent);
-            transform: rotate(90deg);
-        }
-
-        /* Keyframe Animations */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes spin-reverse {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(-360deg); }
-        }
-
-        @keyframes glitchText {
-            0%, 100% { text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); }
-            50% { text-shadow: 0 0 20px rgba(255, 0, 85, 0.8), -2px 0 var(--accent), 2px 0 var(--primary); }
-        }
-
-        /* Mobile Optimization */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .search-box {
-                width: 100%;
-            }
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .profile-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Ambient Overlay Screen -->
-    <div class="scanlines"></div>
+  <!-- Banner (image.png) -->
+  <div class="banner-container">
+    <img src="image.png" alt="ALONEMODDER Banner" class="banner-img">
+  </div>
 
-    <!-- Interactive Interactive Kinetic Canvas -->
-    <canvas id="particle-canvas"></canvas>
+  <!-- Header Profile Bar (image3.png) -->
+  <div class="profile-bar">
+    <div class="user-info">
+      <div class="avatar-frame">
+        <img src="image3.png" alt="AM Profile Icon" class="avatar-img">
+      </div>
+      <div class="user-details">
+        <h1>ALONEMODDER</h1>
+        <p>&gt;_ WE TAKE COMMAND</p>
+      </div>
+    </div>
+  </div>
 
-    <!-- Futuristic Dynamic Preloader -->
-    <div id="preloader">
-        <div class="loader-ring"></div>
-        <div class="loader-title">ALONEMODDER 4K</div>
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="loader-progress"></div>
+  <!-- Main Layout -->
+  <div class="main-container">
+    
+    <!-- Sidebar (image2.png) -->
+    <aside class="panel">
+      <div class="brand-card">
+        <img src="image2.png" alt="ALONEMODDER Full Logo" class="brand-logo-full">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Dashboard</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Tools & Mods</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </aside>
+
+    <!-- Content Panel -->
+    <main class="panel">
+      <div class="content-header">
+        <h2>System Overview</h2>
+      </div>
+      <div class="card-grid">
+        <div class="stat-card">
+          <h3>100%</h3>
+          <p>SYSTEM READY</p>
         </div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="app-container">
-        
-        <!-- Header -->
-        <header>
-            <a href="#" class="logo">
-                <i class="fa-solid fa-bolt-lightning"></i> ALONE<span>MODDER</span>
-            </a>
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search Ultra Mods...">
-            </div>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>ULTRA HD MODDED APKS</h1>
-            <p>Experience uninterrupted gameplay with premium features unlocked, 4K texture mods, and max FPS performance.</p>
-        </section>
-
-        <!-- Dynamic Game Grid -->
-        <main class="main-content">
-            <div class="grid-container" id="modGrid">
-                <!-- Javascript dynamic injection -->
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer>
-            <p>&copy; 2026 ALONEMODDER 4K. All rights reserved. Ultra High-Performance Gaming Portal.</p>
-        </footer>
-    </div>
-
-    <!-- Interactive Download Modal -->
-    <div class="modal-overlay" id="downloadModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-            <i class="fa-solid fa-circle-check" style="font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; filter: drop-shadow(0 0 15px var(--primary));"></i>
-            <h3 id="modalGameTitle">Preparing File</h3>
-            <p id="modalStatus">Securing 4K server connection...</p>
-            <div class="progress-bar-container" style="width: 100%; margin-bottom: 25px;">
-                <div class="progress-bar" id="downloadProgress"></div>
-            </div>
-            <button class="btn-particle" id="modalActionBtn" style="display: none;" onclick="closeModal()">Complete Download</button>
+        <div class="stat-card">
+          <h3>ACTIVE</h3>
+          <p>PURPLE UI THEME</p>
         </div>
-    </div>
+        <div class="stat-card">
+          <h3>v2.0</h3>
+          <p>COMMAND INTERFACE</p>
+        </div>
+      </div>
+    </main>
 
-    <script>
-        /* ===================================================
-           1. MOD DATA CONFIGURATION
-           =================================================== */
-        const modData = [
-            {
-                id: 1,
-                title: "Cyberpunk Mobile 2077",
-                version: "v2.1.4",
-                size: "1.8 GB",
-                rating: "4.9",
-                badge: "MAX GRAPHICS",
-                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80",
-                features: ["Unlimited Eddies & Credits", "Ray Tracing Unlocked", "God Mode / Infinite Health"]
-            },
-            {
-                id: 2,
-                title: "Shadow Blade: 4K Reborn",
-                version: "v1.0.8",
-                size: "450 MB",
-                rating: "4.8",
-                badge: "PRO MOD",
-                image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80",
-                features: ["All Weapons Unlocked", "Max Level VIP Active", "Zero Skill Cooldown"]
-            },
-            {
-                id: 3,
-                title: "Asphalt Speed Overdrive",
-                version: "v4.5.0",
-                size: "2.1 GB",
-                rating: "4.7",
-                badge: "ULTRA FPS",
-                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80",
-                features: ["Infinite Nitro", "All Hypercars Unlocked", "Anti-Ban Enabled"]
-            },
-            {
-                id: 4,
-                title: "Apex Arena Legends",
-                version: "v3.2.1",
-                size: "1.2 GB",
-                rating: "4.9",
-                badge: "VIP MENU",
-                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
-                features: ["Wallhack / Aimbot Mod", "Unlimited Coins", "High FPS Unlocker"]
-            },
-            {
-                id: 5,
-                title: "Genshin Quest 4K",
-                version: "v4.2.0",
-                size: "3.4 GB",
-                rating: "4.9",
-                badge: "UNLOCKED",
-                image: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80",
-                features: ["Infinite Primogems", "Max World Level", "All Characters 5-Star"]
-            },
-            {
-                id: 6,
-                title: "Dead Zone Survival",
-                version: "v2.0.1",
-                size: "890 MB",
-                rating: "4.6",
-                badge: "GOD MOD",
-                image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
-                features: ["Unlimited Ammo", "Crafting Free", "No Recoil"]
-            }
-        ];
+  </div>
 
-        /* ===================================================
-           2. ADVANCED PRELOADER SYSTEM
-           =================================================== */
-        window.addEventListener('DOMContentLoaded', () => {
-            const preloader = document.getElementById('preloader');
-            const loaderProgress = document.getElementById('loader-progress');
-            let progress = 0;
-
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 15) + 8;
-                if (progress >= 100) {
-                    progress = 100;
-                    loaderProgress.style.width = '100%';
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        preloader.style.opacity = '0';
-                        preloader.style.visibility = 'hidden';
-                    }, 500);
-                } else {
-                    loaderProgress.style.width = progress + '%';
-                }
-            }, 50);
-
-            renderCards(modData);
-        });
-
-        /* ===================================================
-           3. ADVANCED INTERACTIVE KINETIC CANVAS
-           =================================================== */
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        let width, height;
-        let particles = [];
-        let mouse = { x: null, y: null, radius: 170 };
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        window.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.baseX = this.x;
-                this.baseY = this.y;
-                this.size = Math.random() * 2.5 + 1;
-                this.speedX = (Math.random() - 0.5) * 1.2;
-                this.speedY = (Math.random() - 0.5) * 1.2;
-                this.color = Math.random() > 0.4 ? '#00f0ff' : (Math.random() > 0.5 ? '#7000ff' : '#ff0055');
-                this.alpha = Math.random() * 0.7 + 0.3;
-                this.density = (Math.random() * 30) + 1;
-            }
-
-            update() {
-                // Interactive Mouse Physics Magnetism & Push
-                if (mouse.x != null && mouse.y != null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < mouse.radius) {
-                        let forceDirectionX = dx / distance;
-                        let forceDirectionY = dy / distance;
-                        let maxDistance = mouse.radius;
-                        let force = (maxDistance - distance) / maxDistance;
-                        let directionX = forceDirectionX * force * this.density;
-                        let directionY = forceDirectionY * force * this.density;
-                        
-                        this.x -= directionX;
-                        this.y -= directionY;
-                    }
-                }
-
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        for (let i = 0; i < 110; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, width, height);
-            
-            // Draw Dynamic Connecting Lines
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a + 1; b < particles.length; b++) {
-                    const dx = particles[a].x - particles[b].x;
-                    const dy = particles[a].y - particles[b].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 130) {
-                        ctx.save();
-                        ctx.globalAlpha = (1 - dist / 130) * 0.25;
-                        ctx.strokeStyle = particles[a].color;
-                        ctx.lineWidth = 0.8;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                        ctx.restore();
-                    }
-                }
-            }
-
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        /* ===================================================
-           4. 3D CARD RENDERING & TILT ANIMATION ENGINE
-           =================================================== */
-        function renderCards(data) {
-            const grid = document.getElementById('modGrid');
-            grid.innerHTML = '';
-
-            if(data.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-size: 1.3rem;">No Cyber Mods Found Matching Search Request.</p>`;
-                return;
-            }
-
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-img-wrapper">
-                        <img src="${item.image}" alt="${item.title}">
-                        <span class="badge-mod">${item.badge}</span>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">${item.title}</h3>
-                        <div class="card-info">
-                            <span><i class="fa-solid fa-code-branch"></i> ${item.version}</span>
-                            <span><i class="fa-solid fa-hard-drive"></i> ${item.size}</span>
-                            <span><i class="fa-solid fa-star" style="color: #ffd700;"></i> ${item.rating}</span>
-                        </div>
-                        <ul class="mod-features">
-                            ${item.features.map(f => `<li><i class="fa-solid fa-shield-halved"></i> ${f}</li>`).join('')}
-                        </ul>
-                        <div class="btn-particle-container">
-                            <button class="btn-particle" onclick="triggerDownload(event, '${item.title}')">
-                                <i class="fa-solid fa-download"></i> Download MOD
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                // Add 3D Tilt Effect
-                addTiltEffect(card);
-                grid.appendChild(card);
-            });
-        }
-
-        function addTiltEffect(card) {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -12;
-                const rotateY = ((x - centerX) / centerX) * 12;
-
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-            });
-        }
-
-        // Search Engine Filter
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const filtered = modData.filter(mod => 
-                mod.title.toLowerCase().includes(query) || 
-                mod.badge.toLowerCase().includes(query)
-            );
-            renderCards(filtered);
-        });
-
-        /* ===================================================
-           5. FULL HIGH-ATTENTION PARTICLE BURST SYSTEM
-           =================================================== */
-        function triggerDownload(event, gameTitle) {
-            const btn = event.currentTarget;
-            const rect = btn.getBoundingClientRect();
-
-            // Create localized high-density explosion burst
-            for (let i = 0; i < 45; i++) {
-                createCyberParticle(rect.left + rect.width / 2, rect.top + rect.height / 2);
-            }
-
-            // Launch Modal
-            setTimeout(() => {
-                openModal(gameTitle);
-            }, 350);
-        }
-
-        function createCyberParticle(x, y) {
-            const particle = document.createElement('div');
-            document.body.appendChild(particle);
-
-            const size = Math.floor(Math.random() * 10 + 4);
-            const destinationX = x + (Math.random() - 0.5) * 300;
-            const destinationY = y + (Math.random() - 0.5) * 300;
-            const colors = ['#00f0ff', '#ff0055', '#7000ff', '#ffffff'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-
-            particle.style.cssText = `
-                position: fixed;
-                left: ${x}px;
-                top: ${y}px;
-                width: ${size}px;
-                height: ${size}px;
-                background: ${color};
-                border-radius: 50%;
-                pointer-events: none;
-                box-shadow: 0 0 15px ${color};
-                z-index: 9999;
-                transition: transform 0.7s cubic-bezier(0.1, 1, 0.1, 1), opacity 0.7s ease;
-            `;
-
-            requestAnimationFrame(() => {
-                particle.style.transform = `translate(${destinationX - x}px, ${destinationY - y}px) scale(0)`;
-                particle.style.opacity = '0';
-            });
-
-            setTimeout(() => {
-                particle.remove();
-            }, 700);
-        }
-
-        /* ===================================================
-           6. HOLOGRAPHIC MODAL & DOWNLOAD SIMULATION
-           =================================================== */
-        const modal = document.getElementById('downloadModal');
-        const downloadProgress = document.getElementById('downloadProgress');
-        const modalStatus = document.getElementById('modalStatus');
-        const modalActionBtn = document.getElementById('modalActionBtn');
-        const modalGameTitle = document.getElementById('modalGameTitle');
-
-        function openModal(title) {
-            modalGameTitle.innerText = title;
-            modalStatus.innerText = "Securing 4K server connection...";
-            downloadProgress.style.width = '0%';
-            modalActionBtn.style.display = 'none';
-            modal.classList.add('active');
-
-            let p = 0;
-            const timer = setInterval(() => {
-                p += Math.floor(Math.random() * 18) + 12;
-                if (p >= 100) {
-                    p = 100;
-                    downloadProgress.style.width = '100%';
-                    modalStatus.innerText = "Mod File Encrypted & Ready!";
-                    modalActionBtn.style.display = 'inline-flex';
-                    clearInterval(timer);
-                } else {
-                    downloadProgress.style.width = p + '%';
-                }
-            }, 120);
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
-        }
-    </script>
 </body>
 </html>
