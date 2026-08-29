@@ -4,37 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#08051a">
-
+<meta name="description" content="ALONEMODDER VIP Resource Station">
 <title>ALONEMODDER | VIP MOD STATION</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800;900&display=swap');
 
 :root{
-  --bg:#04030b;
-  --bg2:#08051a;
+  --bg:#050313;
+  --bg2:#090622;
+  --panel:rgba(14,10,38,.78);
+  --panel2:rgba(25,18,62,.65);
 
-  --panel:rgba(10,7,30,.78);
-  --panel2:rgba(20,12,55,.65);
-
-  --indigo:#4f46e5;
-  --indigo2:#6366f1;
-  --indigo3:#818cf8;
+  --indigo:#6366f1;
+  --indigo2:#818cf8;
+  --indigo3:#4f46e5;
   --deep:#312e81;
+  --blue:#818cf8;
 
   --white:#ffffff;
-  --muted:#918daa;
-  --muted2:#69647d;
+  --muted:#9693ad;
+  --muted2:#69667d;
 
-  --line:rgba(99,102,241,.28);
-  --line2:rgba(129,140,248,.16);
-
-  --glow:rgba(79,70,229,.38);
+  --line:rgba(129,140,248,.20);
+  --glow:rgba(99,102,241,.38);
 }
-
-/* =========================
-   RESET
-========================= */
 
 *{
   box-sizing:border-box;
@@ -50,25 +44,10 @@ body{
   min-height:100vh;
   color:var(--white);
   font-family:Inter,system-ui,sans-serif;
-
   background:
-    radial-gradient(
-      circle at 8% 0%,
-      rgba(79,70,229,.20),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 100% 45%,
-      rgba(49,46,129,.18),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      #020207,
-      #07051a 55%,
-      #03020a
-    );
-
+    radial-gradient(circle at 8% 0%,rgba(99,102,241,.18),transparent 30%),
+    radial-gradient(circle at 100% 45%,rgba(49,46,129,.18),transparent 30%),
+    linear-gradient(135deg,#020108,#08051a 55%,#03020b);
   overflow-x:hidden;
 }
 
@@ -82,7 +61,7 @@ button{
 }
 
 /* =========================
-   PARTICLE CANVAS
+   BACKGROUND FX
 ========================= */
 
 #fx{
@@ -91,70 +70,8 @@ button{
   width:100%;
   height:100%;
   pointer-events:none;
-  z-index:0;
+  z-index:-10;
 }
-
-/* =========================
-   BACKGROUND BLOBS
-========================= */
-
-.blob{
-  position:fixed;
-  border-radius:50%;
-  filter:blur(120px);
-  pointer-events:none;
-  z-index:0;
-  opacity:.16;
-}
-
-.blob.a{
-  width:520px;
-  height:520px;
-  background:#4f46e5;
-  left:-250px;
-  top:-190px;
-  animation:blobA 16s ease-in-out infinite alternate;
-}
-
-.blob.b{
-  width:480px;
-  height:480px;
-  background:#312e81;
-  right:-240px;
-  top:25%;
-  animation:blobB 18s ease-in-out infinite alternate;
-}
-
-.blob.c{
-  width:420px;
-  height:420px;
-  background:#6366f1;
-  left:25%;
-  bottom:-330px;
-  animation:blobC 20s ease-in-out infinite alternate;
-}
-
-@keyframes blobA{
-  to{
-    transform:translate(270px,180px) scale(1.2);
-  }
-}
-
-@keyframes blobB{
-  to{
-    transform:translate(-170px,-110px) scale(1.2);
-  }
-}
-
-@keyframes blobC{
-  to{
-    transform:translate(150px,-160px) scale(1.18);
-  }
-}
-
-/* =========================
-   NOISE
-========================= */
 
 .noise{
   position:fixed;
@@ -162,10 +79,61 @@ button{
   pointer-events:none;
   z-index:9998;
   opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-  background-image:url(
-    "data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"
-  );
+.blob{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(110px);
+  pointer-events:none;
+  z-index:-8;
+  opacity:.18;
+}
+
+.blob.a{
+  width:520px;
+  height:520px;
+  background:#4f46e5;
+  left:-250px;
+  top:-200px;
+  animation:blobA 15s ease-in-out infinite alternate;
+}
+
+.blob.b{
+  width:500px;
+  height:500px;
+  background:#3730a3;
+  right:-260px;
+  top:25%;
+  animation:blobB 18s ease-in-out infinite alternate;
+}
+
+.blob.c{
+  width:450px;
+  height:450px;
+  background:#6366f1;
+  left:25%;
+  bottom:-350px;
+  animation:blobC 20s ease-in-out infinite alternate;
+}
+
+@keyframes blobA{
+  to{
+    transform:translate(280px,190px) scale(1.25);
+  }
+}
+
+@keyframes blobB{
+  to{
+    transform:translate(-180px,-120px) scale(1.25);
+  }
+}
+
+@keyframes blobC{
+  to{
+    transform:translate(170px,-180px) scale(1.2);
+  }
 }
 
 /* =========================
@@ -176,15 +144,10 @@ button{
   position:fixed;
   inset:0;
   z-index:99999;
-
   display:grid;
   place-items:center;
-
-  background:#020107;
-
-  transition:
-    opacity .7s,
-    visibility .7s;
+  background:#020108;
+  transition:opacity .7s,visibility .7s;
 }
 
 #loader.hide{
@@ -193,107 +156,82 @@ button{
 }
 
 .boot{
-  width:min(520px,90vw);
-
+  width:min(520px,88vw);
   text-align:center;
-
   padding:34px 25px;
-
   border:1px solid var(--line);
   border-radius:24px;
-
-  background:rgba(7,4,20,.9);
-
-  backdrop-filter:blur(25px);
-
-  box-shadow:
-    0 0 80px rgba(79,70,229,.15);
+  background:rgba(7,5,20,.88);
+  backdrop-filter:blur(24px);
+  box-shadow:0 0 80px rgba(99,102,241,.14);
 }
 
 .boot-logo{
-  font:
-    900 clamp(30px,8vw,62px)
-    Orbitron;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:80px;
+}
 
-  letter-spacing:5px;
-
-  color:var(--indigo3);
-
-  text-shadow:
-    0 0 20px rgba(99,102,241,.5),
-    0 0 50px rgba(79,70,229,.25);
+.boot-logo img{
+  max-width:270px;
+  max-height:90px;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 0 25px rgba(99,102,241,.5));
 }
 
 .boot-sub{
   margin-top:10px;
-
-  color:#77728c;
-
-  font:
-    10px Orbitron;
-
+  color:#85819d;
+  font:10px Orbitron;
   letter-spacing:4px;
 }
 
 .boot-ring{
   width:74px;
   height:74px;
-
   margin:28px auto 20px;
-
   border-radius:50%;
-
-  border:
-    2px solid
-    rgba(99,102,241,.12);
-
+  border:2px solid rgba(129,140,248,.12);
   border-top-color:var(--indigo2);
-  border-right-color:var(--indigo3);
-
-  box-shadow:
-    0 0 35px var(--glow);
-
+  border-right-color:var(--indigo);
+  box-shadow:0 0 35px var(--glow);
   animation:spin .8s linear infinite;
 }
 
 .boot-track{
   height:4px;
-
   border-radius:10px;
-
-  background:#151225;
-
+  background:#17142a;
   overflow:hidden;
 }
 
 .boot-bar{
   height:100%;
   width:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #312e81,
-      #4f46e5,
-      #6366f1,
-      #818cf8
-    );
-
-  box-shadow:
-    0 0 18px var(--indigo2);
-
+  background:linear-gradient(
+    90deg,
+    var(--deep),
+    var(--indigo),
+    var(--indigo2)
+  );
+  box-shadow:0 0 18px var(--indigo2);
   transition:width .25s;
 }
 
 .boot-status{
   margin-top:12px;
-
-  color:#625c73;
-
-  font:
-    9px Orbitron;
-
+  color:#716d84;
+  font:9px Orbitron;
   letter-spacing:2px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 /* =========================
@@ -302,77 +240,57 @@ button{
 
 .navbar{
   position:fixed;
-
   top:14px;
   left:50%;
-
   transform:translateX(-50%);
-
   width:min(1180px,93%);
-
   z-index:500;
-
-  padding:9px 14px;
-
-  border:
-    1px solid
-    var(--line);
-
+  padding:11px 15px;
+  border:1px solid var(--line);
   border-radius:18px;
-
-  background:
-    rgba(4,3,12,.78);
-
+  background:rgba(5,3,15,.76);
   backdrop-filter:blur(22px);
-
-  box-shadow:
-    0 15px 55px rgba(0,0,0,.45);
+  box-shadow:0 15px 55px rgba(0,0,0,.42);
 }
 
 .nav{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
-  gap:15px;
+  gap:12px;
 }
 
-/* REAL USER LOGO */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font:900 15px Orbitron;
+  letter-spacing:2px;
+}
 
-.nav-logo{
-  height:48px;
-  width:150px;
-
+.logo img{
+  width:32px;
+  height:32px;
   object-fit:contain;
-  object-position:left center;
-
-  display:block;
+  border-radius:8px;
+  filter:drop-shadow(0 0 12px rgba(99,102,241,.55));
 }
 
 .status{
   display:flex;
   align-items:center;
   gap:8px;
-
-  color:#8a849e;
-
-  font:
-    9px Orbitron;
-
+  color:#8d899e;
+  font:9px Orbitron;
   letter-spacing:1px;
 }
 
 .status i{
   width:7px;
   height:7px;
-
   border-radius:50%;
-
-  background:var(--indigo3);
-
-  box-shadow:
-    0 0 14px var(--indigo2);
-
+  background:var(--indigo2);
+  box-shadow:0 0 14px var(--indigo2);
   animation:pulse 1.2s infinite;
 }
 
@@ -382,29 +300,17 @@ button{
 }
 
 .nav-btn{
-  padding:9px 13px;
-
-  border:
-    1px solid
-    rgba(129,140,248,.18);
-
+  padding:8px 12px;
+  border:1px solid rgba(129,140,248,.14);
   border-radius:9px;
-
-  color:#d8d5ff;
-
-  background:
-    rgba(99,102,241,.045);
-
+  color:#ddd;
+  background:rgba(255,255,255,.035);
   transition:.25s;
 }
 
 .nav-btn:hover{
   border-color:var(--indigo2);
-
-  box-shadow:
-    0 0 20px
-    rgba(79,70,229,.22);
-
+  box-shadow:0 0 18px rgba(99,102,241,.16);
   transform:translateY(-2px);
 }
 
@@ -414,245 +320,155 @@ button{
 
 .hero{
   width:min(1250px,93%);
-
-  min-height:510px;
-
+  min-height:530px;
   margin:100px auto 30px;
-
   position:relative;
   overflow:hidden;
-
-  z-index:2;
-
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:28px;
-
-  background:#070516;
-
-  box-shadow:
-    0 30px 100px
-    rgba(0,0,0,.6);
+  background:#08051a;
+  box-shadow:0 30px 100px rgba(0,0,0,.55);
 }
-
-/* REAL BANNER */
 
 .hero-img{
   position:absolute;
-
   inset:0;
-
   width:100%;
   height:100%;
-
   object-fit:cover;
-
   object-position:center;
-
-  opacity:.62;
-
-  filter:
-    brightness(.62)
-    contrast(1.08)
-    saturate(.85);
-
-  transform:scale(1.035);
-
-  transition:
-    transform 8s ease;
+  opacity:.52;
+  filter:brightness(.65) contrast(1.08) saturate(.9);
+  transform:scale(1.04);
+  transition:transform 8s ease;
 }
 
 .hero:hover .hero-img{
-  transform:scale(1.075);
+  transform:scale(1.09);
 }
 
 .hero-shade{
   position:absolute;
   inset:0;
-
   background:
     linear-gradient(
       90deg,
-      #03020a 0%,
-      rgba(3,2,10,.84) 34%,
-      rgba(3,2,10,.30) 70%,
-      rgba(3,2,10,.62) 100%
+      #050313 0%,
+      rgba(5,3,19,.85) 34%,
+      rgba(5,3,19,.30) 78%
     ),
     linear-gradient(
       0deg,
-      #03020a 0%,
-      transparent 48%,
-      rgba(3,2,10,.2) 100%
+      #050313 0%,
+      transparent 50%,
+      rgba(5,3,19,.22)
     );
 }
 
 .hero-grid{
   position:absolute;
   inset:0;
-
   opacity:.10;
-
   background-image:
     linear-gradient(
-      rgba(99,102,241,.25) 1px,
+      rgba(129,140,248,.22) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(99,102,241,.25) 1px,
+      rgba(129,140,248,.22) 1px,
       transparent 1px
     );
-
   background-size:42px 42px;
-
-  mask-image:
-    linear-gradient(
-      to right,
-      #000,
-      transparent 80%
-    );
+  mask-image:linear-gradient(
+    to right,
+    #000,
+    transparent 78%
+  );
 }
 
 .hero-content{
   position:relative;
-
-  z-index:3;
-
-  min-height:510px;
-
+  z-index:2;
+  min-height:530px;
   padding:65px;
-
   display:flex;
-
   justify-content:center;
-
   flex-direction:column;
 }
 
 .eyebrow{
   width:max-content;
-
   padding:7px 12px;
-
-  border:
-    1px solid
-    rgba(129,140,248,.30);
-
+  border:1px solid rgba(129,140,248,.28);
   border-radius:99px;
-
-  background:
-    rgba(79,70,229,.09);
-
-  color:var(--indigo3);
-
-  font:
-    9px Orbitron;
-
+  background:rgba(99,102,241,.08);
+  color:var(--indigo2);
+  font:9px Orbitron;
   letter-spacing:2px;
-
-  box-shadow:
-    0 0 25px
-    rgba(79,70,229,.08);
+  box-shadow:0 0 25px rgba(99,102,241,.08);
 }
 
-.hero h1{
+.hero-logo{
   margin-top:20px;
-
-  font:
-    900 clamp(43px,8vw,94px)
-    Orbitron;
-
-  line-height:.9;
-
-  letter-spacing:2px;
-
-  color:#fff;
-
-  text-shadow:
-    0 0 12px rgba(129,140,248,.55),
-    0 0 35px rgba(79,70,229,.35);
+  max-width:min(430px,80vw);
+  max-height:150px;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  object-position:left center;
+  filter:
+    drop-shadow(0 0 18px rgba(99,102,241,.42))
+    drop-shadow(0 0 45px rgba(79,70,229,.22));
 }
 
 .hero p{
   max-width:650px;
-
   margin-top:22px;
-
-  color:#aaa5b8;
-
+  color:#aaa7b8;
   line-height:1.75;
 }
 
 .actions{
   display:flex;
-
   flex-wrap:wrap;
-
   gap:11px;
-
   margin-top:28px;
 }
 
 .btn{
   position:relative;
-
   overflow:hidden;
-
   padding:13px 18px;
-
-  border:
-    1px solid
-    rgba(129,140,248,.30);
-
+  border:1px solid rgba(129,140,248,.30);
   border-radius:11px;
-
   color:#fff;
-
   text-decoration:none;
-
   font-weight:800;
-
-  background:
-    linear-gradient(
-      100deg,
-      #312e81,
-      #4f46e5
-    );
-
-  box-shadow:
-    0 0 25px
-    rgba(79,70,229,.15);
-
+  background:linear-gradient(
+    100deg,
+    #4f46e5,
+    #312e81
+  );
+  box-shadow:0 0 25px rgba(99,102,241,.12);
   transition:.3s;
 }
 
 .btn:hover{
   transform:translateY(-3px);
-
-  box-shadow:
-    0 12px 38px
-    rgba(79,70,229,.3);
+  box-shadow:0 12px 38px rgba(99,102,241,.28);
 }
 
 .btn.alt{
-  background:
-    rgba(255,255,255,.035);
+  background:rgba(255,255,255,.035);
 }
 
 .ripple{
   position:absolute;
-
   border-radius:50%;
-
   transform:scale(0);
-
-  background:
-    rgba(255,255,255,.20);
-
+  background:rgba(255,255,255,.25);
   animation:ripple .65s linear;
-
   pointer-events:none;
 }
 
@@ -669,152 +485,94 @@ button{
 
 .profile{
   width:min(1180px,88%);
-
   margin:-62px auto 28px;
-
   position:relative;
   z-index:10;
-
   display:flex;
-
   align-items:center;
   justify-content:space-between;
-
   gap:18px;
 }
 
 .profile-left{
   display:flex;
-
   align-items:center;
-
   gap:17px;
 }
-
-/* REAL USER ICON */
 
 .avatar{
   width:112px;
   height:112px;
-
   padding:3px;
-
   flex:none;
-
   border-radius:50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #312e81,
-      #4f46e5,
-      #818cf8,
-      #4f46e5
-    );
-
-  box-shadow:
-    0 0 38px
-    rgba(79,70,229,.5);
+  background:conic-gradient(
+    var(--indigo2),
+    var(--indigo),
+    #a5b4fc,
+    var(--indigo2)
+  );
+  box-shadow:0 0 38px rgba(99,102,241,.45);
+  animation:spin 8s linear infinite;
 }
 
 .avatar img{
   width:100%;
   height:100%;
-
-  display:block;
-
   border-radius:50%;
-
-  object-fit:contain;
-
-  background:#05030d;
-
+  object-fit:cover;
   border:4px solid #08051a;
 }
 
 .profile h2{
-  font:
-    800 24px Orbitron;
+  font:800 24px Orbitron;
 }
 
 .profile p{
   margin-top:6px;
-
-  color:var(--indigo3);
-
-  font:
-    9px Orbitron;
-
+  color:var(--indigo2);
+  font:9px Orbitron;
   letter-spacing:2px;
 }
 
-/* =========================
-   NOTICE
-========================= */
-
 .notice{
   max-width:390px;
-
   padding:13px 15px;
-
-  border:
-    1px solid
-    rgba(99,102,241,.22);
-
+  border:1px solid rgba(129,140,248,.22);
   border-radius:14px;
-
   background:
     linear-gradient(
       135deg,
-      rgba(79,70,229,.13),
+      rgba(99,102,241,.13),
       rgba(255,255,255,.025)
     );
-
-  box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.25);
+  box-shadow:0 12px 35px rgba(0,0,0,.25);
 }
 
 .notice-top{
   display:flex;
-
   align-items:center;
-
   gap:8px;
-
-  color:var(--indigo3);
-
-  font:
-    9px Orbitron;
-
+  color:var(--indigo2);
+  font:9px Orbitron;
   letter-spacing:1.5px;
 }
 
 .notice-dot{
   width:7px;
   height:7px;
-
   border-radius:50%;
-
-  background:var(--indigo3);
-
-  box-shadow:
-    0 0 12px
-    var(--indigo2);
-
+  background:var(--indigo2);
+  box-shadow:0 0 12px var(--indigo2);
   animation:pulse 1s infinite;
 }
 
 .notice p{
   margin:6px 0 0;
-
-  color:#9e99aa;
-
+  color:#9e9aae;
   font-size:11px;
-
   line-height:1.5;
-
-  transition:.2s;
+  transition:opacity .18s;
 }
 
 /* =========================
@@ -823,73 +581,40 @@ button{
 
 .stats{
   width:min(1180px,88%);
-
   margin:auto auto 25px;
-
   display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
+  grid-template-columns:repeat(4,1fr);
   gap:12px;
-
-  position:relative;
-
-  z-index:2;
 }
 
 .stat{
   padding:19px;
-
   text-align:center;
-
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:16px;
-
   background:var(--panel);
-
   backdrop-filter:blur(18px);
-
   transition:.3s;
 }
 
 .stat:hover{
   transform:translateY(-4px);
-
-  border-color:
-    rgba(129,140,248,.42);
-
-  box-shadow:
-    0 12px 35px
-    rgba(79,70,229,.13);
+  border-color:rgba(129,140,248,.42);
+  box-shadow:0 12px 35px rgba(99,102,241,.12);
 }
 
 .stat strong{
   display:block;
-
-  color:var(--indigo3);
-
-  font:
-    800 25px Orbitron;
-
-  text-shadow:
-    0 0 16px
-    rgba(99,102,241,.35);
+  color:var(--indigo2);
+  font:800 25px Orbitron;
+  text-shadow:0 0 16px rgba(129,140,248,.2);
 }
 
 .stat span{
   display:block;
-
   margin-top:6px;
-
-  color:#716c7d;
-
-  font:
-    9px Orbitron;
-
+  color:#716d80;
+  font:9px Orbitron;
   letter-spacing:1px;
 }
 
@@ -899,386 +624,283 @@ button{
 
 .store{
   width:min(1180px,88%);
-
   margin:auto;
-
   display:grid;
-
-  grid-template-columns:
-    220px 1fr;
-
+  grid-template-columns:220px 1fr;
   gap:18px;
-
-  position:relative;
-
-  z-index:2;
 }
 
 .glass{
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:18px;
-
   background:var(--panel);
-
   backdrop-filter:blur(18px);
-
-  box-shadow:
-    0 20px 65px
-    rgba(0,0,0,.35);
+  box-shadow:0 20px 65px rgba(0,0,0,.35);
 }
 
 .sidebar{
   height:max-content;
-
   padding:13px;
-
   position:sticky;
-
   top:92px;
 }
 
 .side-title{
   padding:10px;
-
-  color:#656074;
-
-  font:
-    9px Orbitron;
-
+  color:#656277;
+  font:9px Orbitron;
   letter-spacing:2px;
 }
 
 .category{
   width:100%;
-
   margin:3px 0;
-
   padding:12px;
-
-  border:
-    1px solid
-    transparent;
-
+  border:1px solid transparent;
   border-radius:10px;
-
   background:transparent;
-
-  color:#928d9d;
-
+  color:#928e9f;
   text-align:left;
-
   transition:.25s;
 }
 
 .category:hover,
 .category.active{
   color:#fff;
-
   background:
     linear-gradient(
       90deg,
-      rgba(79,70,229,.20),
-      rgba(79,70,229,.03)
+      rgba(99,102,241,.17),
+      rgba(99,102,241,.03)
     );
-
-  border-color:
-    rgba(99,102,241,.25);
-
+  border-color:rgba(99,102,241,.22);
   box-shadow:
     inset 3px 0 var(--indigo2),
-    0 0 20px
-    rgba(79,70,229,.06);
+    0 0 20px rgba(99,102,241,.06);
 }
-
-/* =========================
-   SEARCH
-========================= */
 
 .search{
   position:relative;
-
   margin-bottom:15px;
-
   padding:1px;
-
   border-radius:14px;
-
   background:
     linear-gradient(
       90deg,
-      rgba(79,70,229,.35),
-      rgba(129,140,248,.10),
-      rgba(49,46,129,.25)
+      rgba(99,102,241,.30),
+      rgba(129,140,248,.08)
     );
 }
 
 .search input{
   width:100%;
-
   padding:15px 45px;
-
   border:0;
-
   outline:0;
-
   border-radius:13px;
-
-  background:
-    rgba(5,3,15,.94);
-
+  background:rgba(5,3,15,.92);
   color:#fff;
 }
 
 .search input::placeholder{
-  color:#625d70;
+  color:#686478;
 }
 
 .search span{
   position:absolute;
-
   left:17px;
-
   top:50%;
-
   transform:translateY(-50%);
-
-  color:var(--indigo3);
-
+  color:var(--indigo2);
   font-size:18px;
 }
 
-/* =========================
-   CARD GRID
-========================= */
-
 .grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
 
 .card{
   position:relative;
-
   overflow:hidden;
-
-  min-height:230px;
-
+  min-height:240px;
   padding:18px;
-
-  border:
-    1px solid
-    var(--line);
-
+  border:1px solid var(--line);
   border-radius:17px;
-
   background:
     linear-gradient(
       145deg,
-      rgba(20,13,48,.78),
-      rgba(7,4,16,.94)
+      rgba(25,18,62,.78),
+      rgba(7,5,17,.92)
     );
-
   transition:
     transform .18s,
     border-color .3s,
     box-shadow .3s;
-
   transform-style:preserve-3d;
 }
 
 .card:hover{
-  border-color:
-    rgba(129,140,248,.45);
-
-  box-shadow:
-    0 20px 55px
-    rgba(0,0,0,.45);
+  border-color:rgba(129,140,248,.45);
+  box-shadow:0 20px 55px rgba(0,0,0,.45);
 }
 
 .card::after{
   content:"";
-
   position:absolute;
-
   width:170px;
   height:170px;
-
   right:-95px;
   top:-95px;
-
   border-radius:50%;
-
-  background:var(--indigo2);
-
+  background:var(--indigo);
   filter:blur(35px);
-
   opacity:.10;
-
   pointer-events:none;
 }
 
 .card-top{
   display:flex;
-
   gap:13px;
 }
 
 .icon{
   width:57px;
   height:57px;
-
   display:grid;
-
   place-items:center;
-
   border-radius:14px;
-
-  border:
-    1px solid
-    rgba(129,140,248,.30);
-
-  background:
-    rgba(79,70,229,.12);
-
+  border:1px solid rgba(129,140,248,.30);
+  background:rgba(99,102,241,.12);
   font-size:25px;
 }
 
 .meta h3{
   margin-top:4px;
-
   font-size:16px;
 }
 
 .meta p{
   margin-top:6px;
-
-  color:#716b7e;
-
-  font:
-    9px Orbitron;
+  color:#716d7e;
+  font:9px Orbitron;
 }
 
 .tags{
   display:flex;
-
   flex-wrap:wrap;
-
   gap:6px;
-
   margin:16px 0;
 }
 
 .tag{
   padding:5px 8px;
-
-  border:
-    1px solid
-    rgba(99,102,241,.22);
-
+  border:1px solid rgba(99,102,241,.22);
   border-radius:6px;
-
-  color:var(--indigo3);
-
-  background:
-    rgba(79,70,229,.07);
-
-  font:
-    8px Orbitron;
+  color:var(--indigo2);
+  background:rgba(99,102,241,.07);
+  font:8px Orbitron;
 }
 
-/* =========================
-   DOWNLOAD BUTTON
-========================= */
+.tag.blue{
+  color:#a5b4fc;
+  border-color:rgba(129,140,248,.2);
+  background:rgba(129,140,248,.035);
+}
 
 .download{
   position:absolute;
-
   left:18px;
   right:18px;
   bottom:18px;
-
   width:calc(100% - 36px);
-
   padding:11px;
-
-  border:
-    1px solid
-    rgba(129,140,248,.25);
-
+  border:1px solid rgba(129,140,248,.25);
   border-radius:9px;
-
   background:
     linear-gradient(
       90deg,
-      #312e81,
-      #4f46e5
+      #4f46e5,
+      #312e81
     );
-
   color:#fff;
-
   font-weight:800;
-
   overflow:hidden;
-
   transition:.25s;
 }
 
 .download:hover{
   transform:translateY(-2px);
-
-  box-shadow:
-    0 0 24px
-    rgba(79,70,229,.30);
+  box-shadow:0 0 24px rgba(99,102,241,.28);
 }
 
 .progress{
   position:absolute;
-
   inset:0 auto 0 0;
-
   width:0;
-
-  background:
-    rgba(255,255,255,.12);
-
+  background:rgba(255,255,255,.15);
   transition:width .12s;
 }
 
 .download-text{
   position:relative;
-
   z-index:2;
 }
 
-/* =========================
-   EMPTY SEARCH
-========================= */
-
 .empty{
   display:none;
-
   padding:45px;
-
   text-align:center;
-
-  border:
-    1px dashed
-    rgba(129,140,248,.25);
-
+  border:1px dashed rgba(129,140,248,.25);
   border-radius:15px;
-
-  color:#716b7e;
+  color:#716d7c;
 }
 
 .empty.show{
   display:block;
+}
+
+/* =========================
+   EXTRA PANEL
+========================= */
+
+.quick{
+  width:min(1180px,88%);
+  margin:20px auto 0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.quick-card{
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(14,10,38,.65);
+  transition:.3s;
+}
+
+.quick-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(129,140,248,.4);
+  box-shadow:0 15px 35px rgba(99,102,241,.10);
+}
+
+.quick-icon{
+  font-size:24px;
+}
+
+.quick h3{
+  margin-top:12px;
+  font-size:14px;
+}
+
+.quick p{
+  margin-top:7px;
+  color:#777286;
+  font-size:11px;
+  line-height:1.5;
 }
 
 /* =========================
@@ -1287,60 +909,34 @@ button{
 
 #toast{
   position:fixed;
-
   right:18px;
   bottom:18px;
-
   z-index:10001;
-
-  max-width:
-    calc(100vw - 36px);
-
+  max-width:calc(100vw - 36px);
   padding:14px 16px;
-
-  border:
-    1px solid
-    rgba(129,140,248,.28);
-
+  border:1px solid rgba(129,140,248,.28);
   border-radius:13px;
-
-  background:
-    rgba(8,5,20,.94);
-
+  background:rgba(9,6,25,.94);
   backdrop-filter:blur(22px);
-
-  box-shadow:
-    0 18px 55px
-    rgba(0,0,0,.5);
-
+  box-shadow:0 18px 55px rgba(0,0,0,.5);
   transform:translateY(100px);
-
   opacity:0;
-
   transition:.35s;
 }
 
 #toast.show{
   transform:translateY(0);
-
   opacity:1;
 }
 
 .toast-dot{
   display:inline-block;
-
   width:7px;
   height:7px;
-
   margin-right:8px;
-
   border-radius:50%;
-
-  background:var(--indigo3);
-
-  box-shadow:
-    0 0 12px
-    var(--indigo2);
+  background:var(--indigo2);
+  box-shadow:0 0 12px var(--indigo2);
 }
 
 /* =========================
@@ -1349,59 +945,22 @@ button{
 
 footer{
   width:min(1180px,88%);
-
   margin:55px auto 25px;
-
   padding-top:18px;
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.06);
-
+  border-top:1px solid rgba(255,255,255,.06);
   text-align:center;
-
-  color:#514c5c;
-
-  font:
-    8px Orbitron;
-
+  color:#514d5c;
+  font:8px Orbitron;
   letter-spacing:2px;
-
-  position:relative;
-
-  z-index:2;
 }
-
-/* REAL FOOTER LOGO */
-
-.footer-logo{
-  display:block;
-
-  width:95px;
-  height:42px;
-
-  object-fit:contain;
-
-  margin:0 auto 10px;
-
-  opacity:.9;
-}
-
-/* =========================
-   REVEAL
-========================= */
 
 .reveal{
   opacity:0;
-
   transform:translateY(25px);
 }
 
 .reveal.show{
-  animation:
-    reveal .7s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
+  animation:reveal .7s cubic-bezier(.16,1,.3,1) forwards;
 }
 
 @keyframes reveal{
@@ -1411,20 +970,14 @@ footer{
   }
 }
 
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
 @keyframes pulse{
   50%{
-    opacity:.35;
+    opacity:.4;
   }
 }
 
 /* =========================
-   TABLET
+   RESPONSIVE
 ========================= */
 
 @media(max-width:850px){
@@ -1434,22 +987,23 @@ footer{
   }
 
   .hero{
-    min-height:450px;
-
+    min-height:470px;
     margin-top:92px;
   }
 
   .hero-content{
-    min-height:450px;
-
+    min-height:470px;
     padding:35px 25px;
+  }
+
+  .hero-logo{
+    max-width:330px;
+    max-height:120px;
   }
 
   .profile{
     margin-top:-32px;
-
     flex-direction:column;
-
     text-align:center;
   }
 
@@ -1462,8 +1016,7 @@ footer{
   }
 
   .stats{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
   .store{
@@ -1477,59 +1030,45 @@ footer{
   .grid{
     grid-template-columns:1fr;
   }
+
+  .quick{
+    grid-template-columns:1fr;
+  }
 }
 
-/* =========================
-   MOBILE
-========================= */
-
 @media(max-width:480px){
-
-  .navbar{
-    width:94%;
-
-    padding:8px 10px;
-  }
-
-  .nav-logo{
-    width:125px;
-    height:43px;
-  }
 
   .nav-actions .nav-btn:first-child{
     display:none;
   }
 
+  .logo{
+    font-size:12px;
+  }
+
+  .logo img{
+    width:27px;
+    height:27px;
+  }
+
   .hero{
     width:94%;
-
     border-radius:20px;
   }
 
-  .hero-img{
-    object-position:center;
-    opacity:.55;
-  }
-
-  .hero h1{
-    font-size:42px;
+  .hero-logo{
+    max-width:280px;
+    max-height:100px;
   }
 
   .hero p{
     font-size:13px;
   }
 
-  .hero-content{
-    padding:30px 22px;
-  }
-
-  .eyebrow{
-    font-size:8px;
-  }
-
   .stats,
   .store,
-  .profile{
+  .profile,
+  .quick{
     width:92%;
   }
 
@@ -1545,28 +1084,7 @@ footer{
   .stat strong{
     font-size:19px;
   }
-
-  .stat span{
-    font-size:8px;
-  }
-
-  .actions{
-    gap:8px;
-  }
-
-  .btn{
-    padding:11px 13px;
-    font-size:12px;
-  }
-
-  .card{
-    min-height:220px;
-  }
 }
-
-/* =========================
-   REDUCED MOTION
-========================= */
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1582,16 +1100,20 @@ footer{
 
 <body>
 
-<!-- =========================================
+<!-- =========================
      LOADER
-========================================= -->
+========================= -->
 
 <div id="loader">
-
   <div class="boot">
 
+    <!-- YOUR image2.png LOGO -->
     <div class="boot-logo">
-      ALONEMODDER
+      <img
+        src="image2.png"
+        alt="ALONEMODDER Logo"
+        onerror="this.style.display='none'"
+      >
     </div>
 
     <div class="boot-sub">
@@ -1601,24 +1123,15 @@ footer{
     <div class="boot-ring"></div>
 
     <div class="boot-track">
-      <div
-        class="boot-bar"
-        id="bootBar">
-      </div>
+      <div class="boot-bar" id="bootBar"></div>
     </div>
 
-    <div
-      class="boot-status"
-      id="bootStatus">
+    <div class="boot-status" id="bootStatus">
       STARTING CORE...
     </div>
 
   </div>
-
 </div>
-
-
-<!-- BACKGROUND -->
 
 <canvas id="fx"></canvas>
 
@@ -1629,21 +1142,26 @@ footer{
 <div class="noise"></div>
 
 
-<!-- =========================================
+<!-- =========================
      NAVBAR
-========================================= -->
+========================= -->
 
 <header class="navbar">
 
   <nav class="nav">
 
-    <!-- YOUR REAL LOGO -->
-    <img
-      src="../image2.png"
-      class="nav-logo"
-      alt="ALONEMODDER Logo"
-      onerror="this.style.display='none'"
-    >
+    <div class="logo">
+
+      <!-- YOUR image2.png LOGO -->
+      <img
+        src="image2.png"
+        alt="Logo"
+        onerror="this.style.display='none'"
+      >
+
+      ALONEMODDER
+
+    </div>
 
     <div class="status">
       <i></i>
@@ -1654,13 +1172,15 @@ footer{
 
       <button
         class="nav-btn"
-        onclick="showToast('All systems operational ✓')">
+        onclick="showToast('All systems operational ✓')"
+      >
         ⚡ Status
       </button>
 
       <button
         class="nav-btn"
-        onclick="goStore()">
+        onclick="goStore()"
+      >
         Explore
       </button>
 
@@ -1671,24 +1191,22 @@ footer{
 </header>
 
 
-<!-- =========================================
-     HERO / YOUR REAL BANNER
-========================================= -->
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero reveal">
 
-  <!-- YOUR REAL BANNER -->
+  <!-- YOUR image.png BANNER -->
   <img
-    src="../image.png"
+    src="image.png"
     class="hero-img"
     alt="ALONEMODDER Banner"
     onerror="this.style.display='none'"
   >
 
   <div class="hero-shade"></div>
-
   <div class="hero-grid"></div>
-
 
   <div class="hero-content">
 
@@ -1696,34 +1214,40 @@ footer{
       ● ALONEMODDER • NEXT GENERATION
     </div>
 
-    <h1>
-      ALONE<br>
-      MODDER
-    </h1>
+    <!-- YOUR image2.png LOGO
+         NO SELF-MADE TEXT LOGO -->
+    <img
+      src="image2.png"
+      class="hero-logo"
+      alt="ALONEMODDER Logo"
+      onerror="this.style.display='none'"
+    >
 
     <p>
-      Premium resource station with a cinematic
-      indigo interface, smooth navigation,
-      live particles and instant resource access.
+      Premium resource station with a cinematic indigo interface,
+      live particles, smooth navigation and instant resource access.
     </p>
 
     <div class="actions">
 
       <a
         href="#store"
-        class="btn">
+        class="btn"
+      >
         ⚡ ENTER STORE
       </a>
 
       <button
         class="btn alt"
-        onclick="showToast('ALONEMODDER systems are online ✓')">
+        onclick="showToast('ALONEMODDER systems are online ✓')"
+      >
         ◈ SYSTEM STATUS
       </button>
 
       <button
         class="btn alt"
-        onclick="showToast('Notifications are up to date ✓')">
+        onclick="showToast('Notifications are up to date ✓')"
+      >
         🔔 NOTIFICATIONS
       </button>
 
@@ -1734,9 +1258,9 @@ footer{
 </section>
 
 
-<!-- =========================================
+<!-- =========================
      PROFILE
-========================================= -->
+========================= -->
 
 <section class="profile reveal">
 
@@ -1744,9 +1268,9 @@ footer{
 
     <div class="avatar">
 
-      <!-- YOUR REAL ICON -->
+      <!-- YOUR image3.png ICON -->
       <img
-        src="../image3.png"
+        src="image3.png"
         alt="ALONEMODDER Icon"
         onerror="this.style.display='none'"
       >
@@ -1766,7 +1290,6 @@ footer{
     </div>
 
   </div>
-
 
   <div class="notice">
 
@@ -1788,76 +1311,43 @@ footer{
 </section>
 
 
-<!-- =========================================
+<!-- =========================
      STATS
-========================================= -->
+========================= -->
 
 <section class="stats reveal">
 
   <div class="stat">
-
-    <strong data-number="128">
-      0
-    </strong>
-
-    <span>
-      RESOURCES
-    </span>
-
+    <strong data-number="128">0</strong>
+    <span>RESOURCES</span>
   </div>
 
-
   <div class="stat">
-
-    <strong data-number="42">
-      0
-    </strong>
-
-    <span>
-      UPDATES
-    </span>
-
+    <strong data-number="42">0</strong>
+    <span>UPDATES</span>
   </div>
 
-
   <div class="stat">
-
-    <strong data-number="99">
-      0
-    </strong>
-
-    <span>
-      UPTIME %
-    </span>
-
+    <strong data-number="99">0</strong>
+    <span>UPTIME %</span>
   </div>
 
-
   <div class="stat">
-
-    <strong data-number="24">
-      0
-    </strong>
-
-    <span>
-      SYSTEMS
-    </span>
-
+    <strong data-number="24">0</strong>
+    <span>SYSTEMS</span>
   </div>
 
 </section>
 
 
-<!-- =========================================
+<!-- =========================
      STORE
-========================================= -->
+========================= -->
 
 <section
   class="store reveal"
-  id="store">
-
-
-  <!-- SIDEBAR -->
+  id="store"
+>
 
   <aside class="sidebar glass">
 
@@ -1865,65 +1355,49 @@ footer{
       CHANNELS
     </div>
 
-
     <button
       class="category active"
-      data-filter="all">
-
+      data-filter="all"
+    >
       ◈ All Resources
-
     </button>
-
 
     <button
       class="category"
-      data-filter="apk">
-
+      data-filter="apk"
+    >
       ◉ Applications
-
     </button>
-
 
     <button
       class="category"
-      data-filter="game">
-
+      data-filter="game"
+    >
       ◇ Games
-
     </button>
-
 
     <button
       class="category"
-      data-filter="tool">
-
+      data-filter="tool"
+    >
       ⚙ Tools
-
     </button>
-
 
     <button
       class="category"
-      data-filter="premium">
-
+      data-filter="premium"
+    >
       ◆ Premium
-
     </button>
 
   </aside>
 
 
-  <!-- MAIN STORE -->
-
   <main>
-
-    <!-- SEARCH -->
 
     <div class="search">
 
-      <span>
-        ⌕
-      </span>
+      <span>⌕</span>
 
       <input
         id="search"
@@ -1935,19 +1409,19 @@ footer{
     </div>
 
 
-    <!-- RESOURCE GRID -->
-
     <div
       class="grid"
-      id="grid">
+      id="grid"
+    >
 
 
-      <!-- CAPCUT -->
+      <!-- CARD 1 -->
 
       <article
         class="card"
         data-category="apk premium"
-        data-name="CapCut Pro">
+        data-name="CapCut Pro"
+      >
 
         <div class="card-top">
 
@@ -1969,23 +1443,22 @@ footer{
 
         </div>
 
-
         <div class="tags">
 
           <span class="tag">
             PRO
           </span>
 
-          <span class="tag">
+          <span class="tag blue">
             4K
           </span>
 
         </div>
 
-
         <button
           class="download"
-          data-file="../CapCut_Pro.apk">
+          data-file="CapCut_Pro.apk"
+        >
 
           <span class="progress"></span>
 
@@ -1998,12 +1471,13 @@ footer{
       </article>
 
 
-      <!-- PUBG -->
+      <!-- CARD 2 -->
 
       <article
         class="card"
         data-category="game"
-        data-name="PUBG Mobile">
+        data-name="PUBG Mobile"
+      >
 
         <div class="card-top">
 
@@ -2025,23 +1499,22 @@ footer{
 
         </div>
 
-
         <div class="tags">
 
           <span class="tag">
             GAME
           </span>
 
-          <span class="tag">
+          <span class="tag blue">
             UPDATE
           </span>
 
         </div>
 
-
         <button
           class="download"
-          data-file="../PUBG_Mod.apk">
+          data-file="PUBG_Mod.apk"
+        >
 
           <span class="progress"></span>
 
@@ -2054,12 +1527,13 @@ footer{
       </article>
 
 
-      <!-- SPOTIFY -->
+      <!-- CARD 3 -->
 
       <article
         class="card"
         data-category="apk premium"
-        data-name="Spotify Premium">
+        data-name="Spotify Premium"
+      >
 
         <div class="card-top">
 
@@ -2081,23 +1555,22 @@ footer{
 
         </div>
 
-
         <div class="tags">
 
           <span class="tag">
             PREMIUM
           </span>
 
-          <span class="tag">
+          <span class="tag blue">
             AUDIO
           </span>
 
         </div>
 
-
         <button
           class="download"
-          data-file="../Spotify_Mod.apk">
+          data-file="Spotify_Mod.apk"
+        >
 
           <span class="progress"></span>
 
@@ -2110,12 +1583,13 @@ footer{
       </article>
 
 
-      <!-- REMINI -->
+      <!-- CARD 4 -->
 
       <article
         class="card"
         data-category="apk"
-        data-name="Remini AI">
+        data-name="Remini AI"
+      >
 
         <div class="card-top">
 
@@ -2137,23 +1611,22 @@ footer{
 
         </div>
 
-
         <div class="tags">
 
           <span class="tag">
             AI
           </span>
 
-          <span class="tag">
+          <span class="tag blue">
             PHOTO
           </span>
 
         </div>
 
-
         <button
           class="download"
-          data-file="../Remini_Mod.apk">
+          data-file="Remini_Mod.apk"
+        >
 
           <span class="progress"></span>
 
@@ -2166,12 +1639,13 @@ footer{
       </article>
 
 
-      <!-- TOOLKIT -->
+      <!-- CARD 5 -->
 
       <article
         class="card"
         data-category="tool"
-        data-name="Utility Toolkit">
+        data-name="Utility Toolkit"
+      >
 
         <div class="card-top">
 
@@ -2193,23 +1667,22 @@ footer{
 
         </div>
 
-
         <div class="tags">
 
           <span class="tag">
             TOOLS
           </span>
 
-          <span class="tag">
+          <span class="tag blue">
             UTILITY
           </span>
 
         </div>
 
-
         <button
           class="download"
-          data-file="../Utility_Toolkit.zip">
+          data-file="Utility_Toolkit.zip"
+        >
 
           <span class="progress"></span>
 
@@ -2222,12 +1695,13 @@ footer{
       </article>
 
 
-      <!-- PREMIUM PACK -->
+      <!-- CARD 6 -->
 
       <article
         class="card"
         data-category="premium tool"
-        data-name="Premium Pack">
+        data-name="Premium Pack"
+      >
 
         <div class="card-top">
 
@@ -2249,23 +1723,22 @@ footer{
 
         </div>
 
-
         <div class="tags">
 
           <span class="tag">
             VIP
           </span>
 
-          <span class="tag">
+          <span class="tag blue">
             PACK
           </span>
 
         </div>
 
-
         <button
           class="download"
-          data-file="../Premium_Pack.zip">
+          data-file="Premium_Pack.zip"
+        >
 
           <span class="progress"></span>
 
@@ -2283,10 +1756,9 @@ footer{
 
     <div
       class="empty"
-      id="empty">
-
+      id="empty"
+    >
       No matching ALONEMODDER resources found.
-
     </div>
 
   </main>
@@ -2294,28 +1766,73 @@ footer{
 </section>
 
 
-<!-- =========================================
-     FOOTER
-========================================= -->
+<!-- =========================
+     QUICK FEATURES
+========================= -->
+
+<section class="quick reveal">
+
+  <div class="quick-card">
+
+    <div class="quick-icon">
+      ⚡
+    </div>
+
+    <h3>
+      FAST ACCESS
+    </h3>
+
+    <p>
+      Quickly find your resources using the built-in search and category system.
+    </p>
+
+  </div>
+
+
+  <div class="quick-card">
+
+    <div class="quick-icon">
+      🛡️
+    </div>
+
+    <h3>
+      CLEAN INTERFACE
+    </h3>
+
+    <p>
+      Lightweight responsive interface designed for mobile and desktop screens.
+    </p>
+
+  </div>
+
+
+  <div class="quick-card">
+
+    <div class="quick-icon">
+      💠
+    </div>
+
+    <h3>
+      INDIGO CORE
+    </h3>
+
+    <p>
+      A consistent indigo visual system with glass panels and animated effects.
+    </p>
+
+  </div>
+
+</section>
+
 
 <footer>
-
-  <!-- YOUR REAL LOGO AGAIN -->
-
-  <img
-    src="../image2.png"
-    class="footer-logo"
-    alt="ALONEMODDER"
-    onerror="this.style.display='none'"
-  >
-
-  ALONEMODDER // VIP MOD STATION
-  • INDIGO CORE ONLINE
-
+  ALONEMODDER // VIP MOD STATION • INDIGO CORE ONLINE
 </footer>
 
 
-<!-- TOAST -->
+<!-- =========================
+     TOAST
+========================= -->
 
 <div id="toast">
 
@@ -2328,9 +1845,9 @@ footer{
 
 <script>
 
-/* =========================================================
-   BOOT SYSTEM
-========================================================= */
+/* =================================
+   BOOT LOADER
+================================= */
 
 const loader =
   document.getElementById("loader");
@@ -2341,91 +1858,70 @@ const bar =
 const status =
   document.getElementById("bootStatus");
 
-
 const steps = [
-
   "STARTING CORE...",
   "LOADING PARTICLE ENGINE...",
   "CALIBRATING INDIGO MATRIX...",
   "SYNCING RESOURCES...",
   "BUILDING INTERFACE...",
   "SYSTEM READY ✓"
-
 ];
-
 
 let n = 0;
 
+const bootTimer = setInterval(() => {
 
-const bootTimer =
-  setInterval(() => {
+  n = Math.min(
+    n + 1,
+    steps.length - 1
+  );
 
-    n = Math.min(
-      n + 1,
-      steps.length - 1
-    );
+  status.textContent =
+    steps[n];
+
+  bar.style.width =
+    ((n + 1) / steps.length * 100) + "%";
+
+},330);
+
+
+window.addEventListener("load",() => {
+
+  setTimeout(() => {
+
+    clearInterval(bootTimer);
+
+    bar.style.width = "100%";
 
     status.textContent =
-      steps[n];
-
-    bar.style.width =
-      ((n + 1) /
-      steps.length * 100) + "%";
-
-  },330);
-
-
-window.addEventListener(
-  "load",
-  () => {
+      "SYSTEM READY ✓";
 
     setTimeout(() => {
 
-      clearInterval(
-        bootTimer
-      );
+      loader.classList.add("hide");
 
-      bar.style.width =
-        "100%";
+      document
+        .querySelectorAll(".reveal")
+        .forEach((x,i) => {
 
-      status.textContent =
-        "SYSTEM READY ✓";
+          setTimeout(() => {
+            x.classList.add("show");
+          },i * 100);
 
+        });
 
-      setTimeout(() => {
+      animateNumbers();
 
-        loader.classList.add(
-          "hide"
-        );
+    },350);
 
+  },1900);
 
-        document
-          .querySelectorAll(
-            ".reveal"
-          )
-          .forEach((x,i) => {
-
-            setTimeout(
-              () => x.classList.add("show"),
-              i * 100
-            );
-
-          });
+});
 
 
-        animateNumbers();
-
-      },350);
-
-    },1900);
-
-  }
-);
-
-
-/* =========================================================
+/* =================================
    PARTICLES
-========================================================= */
+================================= */
 
 const canvas =
   document.getElementById("fx");
@@ -2433,44 +1929,30 @@ const canvas =
 const ctx =
   canvas.getContext("2d");
 
-
 let W = innerWidth;
 let H = innerHeight;
-
 
 function resize(){
 
   W = innerWidth;
   H = innerHeight;
 
-  const dpr =
-    Math.min(
-      window.devicePixelRatio || 1,
-      2
-    );
-
   canvas.width =
-    W * dpr;
+    W * devicePixelRatio;
 
   canvas.height =
-    H * dpr;
-
-  canvas.style.width =
-    W + "px";
-
-  canvas.style.height =
-    H + "px";
+    H * devicePixelRatio;
 
   ctx.setTransform(
-    dpr,
+    devicePixelRatio,
     0,
     0,
-    dpr,
+    devicePixelRatio,
     0,
     0
   );
-}
 
+}
 
 resize();
 
@@ -2484,8 +1966,7 @@ const mobile =
   innerWidth < 700;
 
 const count =
-  mobile ? 45 : 90;
-
+  mobile ? 50 : 100;
 
 const P = [];
 
@@ -2498,17 +1979,13 @@ for(let i=0;i<count;i++){
 
     y:Math.random()*H,
 
-    vx:
-      (Math.random()-.5)*.42,
+    vx:(Math.random()-.5)*.45,
 
-    vy:
-      (Math.random()-.5)*.42,
+    vy:(Math.random()-.5)*.45,
 
-    r:
-      Math.random()*1.5+.35,
+    r:Math.random()*1.7+.35,
 
-    a:
-      Math.random()*.45+.12
+    a:Math.random()*.55+.15
 
   });
 
@@ -2516,11 +1993,8 @@ for(let i=0;i<count;i++){
 
 
 const mouse = {
-
   x:-9999,
-
   y:-9999
-
 };
 
 
@@ -2559,14 +2033,9 @@ function particleLoop(){
   );
 
 
-  for(
-    let i=0;
-    i<P.length;
-    i++
-  ){
+  for(let i=0;i<P.length;i++){
 
     const p = P[i];
-
 
     p.x += p.vx;
     p.y += p.vy;
@@ -2595,16 +2064,13 @@ function particleLoop(){
       Math.hypot(dx,dy);
 
 
-    if(
-      d < 145 &&
-      d > 1
-    ){
+    if(d < 145 && d > 1){
 
       p.x -=
-        dx/d*.10;
+        dx / d * .14;
 
       p.y -=
-        dy/d*.10;
+        dy / d * .14;
 
     }
 
@@ -2616,9 +2082,8 @@ function particleLoop(){
       p.y,
       p.r,
       0,
-      Math.PI*2
+      Math.PI * 2
     );
-
 
     ctx.fillStyle =
       `rgba(129,140,248,${p.a})`;
@@ -2634,8 +2099,7 @@ function particleLoop(){
         j++
       ){
 
-        const q =
-          P[j];
+        const q = P[j];
 
         const dd =
           Math.hypot(
@@ -2658,17 +2122,12 @@ function particleLoop(){
             q.y
           );
 
-
           ctx.strokeStyle =
-            `rgba(
-              79,
-              70,
-              229,
-              ${(1-dd/105)*.15}
-            )`;
+            `rgba(99,102,241,${
+              (1-dd/105)*.18
+            })`;
 
-          ctx.lineWidth =
-            .55;
+          ctx.lineWidth = .55;
 
           ctx.stroke();
 
@@ -2680,20 +2139,18 @@ function particleLoop(){
 
   }
 
-
   requestAnimationFrame(
     particleLoop
   );
 
 }
 
-
 particleLoop();
 
 
-/* =========================================================
+/* =================================
    CLICK BURST
-========================================================= */
+================================= */
 
 addEventListener(
   "click",
@@ -2703,21 +2160,13 @@ addEventListener(
       matchMedia(
         "(prefers-reduced-motion:reduce)"
       ).matches
-    ){
-
-      return;
-
-    }
+    ) return;
 
 
     const sparks = [];
 
 
-    for(
-      let i=0;
-      i<11;
-      i++
-    ){
+    for(let i=0;i<13;i++){
 
       sparks.push({
 
@@ -2725,11 +2174,9 @@ addEventListener(
 
         y:e.clientY,
 
-        vx:
-          (Math.random()-.5)*4.5,
+        vx:(Math.random()-.5)*5,
 
-        vy:
-          (Math.random()-.5)*4.5,
+        vy:(Math.random()-.5)*5,
 
         life:1
 
@@ -2740,44 +2187,35 @@ addEventListener(
 
     function burst(){
 
-      sparks.forEach(
-        s => {
+      sparks.forEach(s => {
 
-          s.x += s.vx;
-          s.y += s.vy;
+        s.x += s.vx;
+        s.y += s.vy;
 
-          s.vx *= .96;
-          s.vy *= .96;
+        s.vx *= .96;
+        s.vy *= .96;
 
-          s.life -= .035;
-
-
-          ctx.beginPath();
-
-          ctx.arc(
-            s.x,
-            s.y,
-            1.4,
-            0,
-            Math.PI*2
-          );
+        s.life -= .035;
 
 
-          ctx.fillStyle =
-            `rgba(
-              129,
-              140,
-              248,
-              ${Math.max(
-                0,
-                s.life
-              )}
-            )`;
+        ctx.beginPath();
 
-          ctx.fill();
+        ctx.arc(
+          s.x,
+          s.y,
+          1.5,
+          0,
+          Math.PI*2
+        );
 
-        }
-      );
+        ctx.fillStyle =
+          `rgba(129,140,248,${
+            Math.max(0,s.life)
+          })`;
+
+        ctx.fill();
+
+      });
 
 
       if(
@@ -2794,16 +2232,15 @@ addEventListener(
 
     }
 
-
     burst();
 
   }
 );
 
 
-/* =========================================================
-   RIPPLE BUTTONS
-========================================================= */
+/* =================================
+   RIPPLE
+================================= */
 
 document
   .querySelectorAll(
@@ -2816,9 +2253,7 @@ document
       e => {
 
         const r =
-          document.createElement(
-            "span"
-          );
+          document.createElement("span");
 
         r.className =
           "ripple";
@@ -2826,7 +2261,6 @@ document
 
         const rect =
           btn.getBoundingClientRect();
-
 
         const size =
           Math.max(
@@ -2841,25 +2275,22 @@ document
         r.style.height =
           size + "px";
 
-
         r.style.left =
           (
             e.clientX -
             rect.left -
-            size/2
+            size / 2
           ) + "px";
-
 
         r.style.top =
           (
             e.clientY -
             rect.top -
-            size/2
+            size / 2
           ) + "px";
 
 
         btn.appendChild(r);
-
 
         setTimeout(
           () => r.remove(),
@@ -2872,29 +2303,18 @@ document
   });
 
 
-/* =========================================================
-   FILTER + SEARCH
-========================================================= */
+/* =================================
+   SEARCH + FILTER
+================================= */
 
 const cards =
-  [
-    ...document.querySelectorAll(
-      ".card"
-    )
-  ];
-
+  [...document.querySelectorAll(".card")];
 
 const search =
-  document.getElementById(
-    "search"
-  );
-
+  document.getElementById("search");
 
 const empty =
-  document.getElementById(
-    "empty"
-  );
-
+  document.getElementById("empty");
 
 let filter = "all";
 
@@ -2906,45 +2326,39 @@ function update(){
       .trim()
       .toLowerCase();
 
-
   let visible = 0;
 
 
-  cards.forEach(
-    c => {
+  cards.forEach(c => {
 
-      const name =
-        c.dataset.name
-          .toLowerCase();
+    const name =
+      c.dataset.name
+        .toLowerCase();
 
-
-      const cats =
-        c.dataset.category
-          .toLowerCase();
+    const cats =
+      c.dataset.category
+        .toLowerCase();
 
 
-      const ok =
-        (
-          !q ||
-          name.includes(q) ||
-          cats.includes(q)
-        )
-        &&
-        (
-          filter === "all" ||
-          cats.includes(filter)
-        );
+    const ok =
+      (!q ||
+        name.includes(q) ||
+        cats.includes(q))
+      &&
+      (
+        filter === "all" ||
+        cats.includes(filter)
+      );
 
 
-      c.style.display =
-        ok ? "" : "none";
+    c.style.display =
+      ok ? "" : "none";
 
 
-      if(ok)
-        visible++;
+    if(ok)
+      visible++;
 
-    }
-  );
+  });
 
 
   empty.classList.toggle(
@@ -2962,49 +2376,36 @@ search.addEventListener(
 
 
 document
-  .querySelectorAll(
-    ".category"
-  )
-  .forEach(
-    b => {
+  .querySelectorAll(".category")
+  .forEach(b => {
 
-      b.addEventListener(
-        "click",
-        () => {
+    b.addEventListener(
+      "click",
+      () => {
 
-          document
-            .querySelectorAll(
-              ".category"
-            )
-            .forEach(
-              x =>
-                x.classList.remove(
-                  "active"
-                )
-            );
-
-
-          b.classList.add(
-            "active"
+        document
+          .querySelectorAll(".category")
+          .forEach(x =>
+            x.classList.remove("active")
           );
 
 
-          filter =
-            b.dataset.filter;
+        b.classList.add("active");
+
+        filter =
+          b.dataset.filter;
+
+        update();
+
+      }
+    );
+
+  });
 
 
-          update();
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================================================
+/* =================================
    3D CARDS
-========================================================= */
+================================= */
 
 if(
   !matchMedia(
@@ -3012,204 +2413,167 @@ if(
   ).matches
 ){
 
-  cards.forEach(
-    c => {
+  cards.forEach(c => {
 
-      c.addEventListener(
-        "mousemove",
-        e => {
+    c.addEventListener(
+      "mousemove",
+      e => {
 
-          if(innerWidth < 800)
-            return;
-
-
-          const r =
-            c.getBoundingClientRect();
+        if(innerWidth < 800)
+          return;
 
 
-          const x =
-            e.clientX -
-            r.left;
+        const r =
+          c.getBoundingClientRect();
+
+        const x =
+          e.clientX-r.left;
+
+        const y =
+          e.clientY-r.top;
 
 
-          const y =
-            e.clientY -
-            r.top;
+        c.style.transform =
+          `perspective(750px)
+           rotateX(${((y/r.height)-.5)*-5}deg)
+           rotateY(${((x/r.width)-.5)*5}deg)
+           translateY(-3px)`;
+
+      }
+    );
 
 
-          c.style.transform =
-            `perspective(750px)
-             rotateX(${(
-               (y/r.height)-.5
-             )*-5}deg)
-             rotateY(${(
-               (x/r.width)-.5
-             )*5}deg)
-             translateY(-3px)`;
+    c.addEventListener(
+      "mouseleave",
+      () => {
 
-        }
-      );
+        c.style.transform = "";
 
+      }
+    );
 
-      c.addEventListener(
-        "mouseleave",
-        () => {
-
-          c.style.transform =
-            "";
-
-        }
-      );
-
-    }
-  );
+  });
 
 }
 
 
-/* =========================================================
-   DOWNLOAD SYSTEM
-========================================================= */
+/* =================================
+   DOWNLOAD
+================================= */
 
 document
-  .querySelectorAll(
-    ".download"
-  )
-  .forEach(
-    btn => {
+  .querySelectorAll(".download")
+  .forEach(btn => {
 
-      btn.addEventListener(
-        "click",
-        () => {
+    btn.addEventListener(
+      "click",
+      () => {
 
-          if(
-            btn.dataset.loading === "1"
-          )
-            return;
+        if(
+          btn.dataset.loading === "1"
+        )
+          return;
 
 
-          btn.dataset.loading =
-            "1";
+        btn.dataset.loading = "1";
 
 
-          const file =
-            btn.dataset.file;
+        const file =
+          btn.dataset.file;
+
+        const prog =
+          btn.querySelector(
+            ".progress"
+          );
+
+        const text =
+          btn.querySelector(
+            ".download-text"
+          );
 
 
-          const prog =
-            btn.querySelector(
-              ".progress"
-            );
+        let v = 0;
+
+        text.textContent =
+          "CONNECTING...";
 
 
-          const text =
-            btn.querySelector(
-              ".download-text"
-            );
+        const t =
+          setInterval(() => {
+
+            v +=
+              Math.floor(
+                Math.random()*12
+              ) + 8;
 
 
-          let v = 0;
+            if(v >= 100){
+
+              v = 100;
+
+              clearInterval(t);
+
+              prog.style.width =
+                "100%";
+
+              text.textContent =
+                "OPENING RESOURCE ✓";
 
 
-          text.textContent =
-            "CONNECTING...";
+              const a =
+                document.createElement("a");
+
+              a.href = file;
+
+              a.download = "";
+
+              document.body.appendChild(a);
+
+              a.click();
+
+              a.remove();
 
 
-          const t =
-            setInterval(
-              () => {
-
-                v +=
-                  Math.floor(
-                    Math.random()*12
-                  ) + 8;
+              showToast(
+                "Resource request started ✓"
+              );
 
 
-                if(v >= 100){
+              setTimeout(() => {
 
-                  v = 100;
+                prog.style.width =
+                  "0";
 
-                  clearInterval(t);
+                text.textContent =
+                  "DOWNLOAD RESOURCE";
 
+                btn.dataset.loading =
+                  "0";
 
-                  prog.style.width =
-                    "100%";
-
-
-                  text.textContent =
-                    "OPENING RESOURCE ✓";
-
-
-                  const a =
-                    document.createElement(
-                      "a"
-                    );
+              },1500);
 
 
-                  a.href =
-                    file;
+            }else{
 
-                  a.download =
-                    "";
+              prog.style.width =
+                v + "%";
 
+              text.textContent =
+                `PREPARING ${v}%`;
 
-                  document.body.appendChild(
-                    a
-                  );
+            }
 
+          },130);
 
-                  a.click();
+      }
+    );
 
-                  a.remove();
-
-
-                  showToast(
-                    "Resource request started ✓"
-                  );
+  });
 
 
-                  setTimeout(
-                    () => {
-
-                      prog.style.width =
-                        "0";
-
-                      text.textContent =
-                        "DOWNLOAD RESOURCE";
-
-                      btn.dataset.loading =
-                        "0";
-
-                    },
-                    1500
-                  );
-
-
-                }else{
-
-                  prog.style.width =
-                    v + "%";
-
-
-                  text.textContent =
-                    `PREPARING ${v}%`;
-
-                }
-
-              },
-              130
-            );
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================================================
+/* =================================
    TOAST
-========================================================= */
+================================= */
 
 let toastTimer;
 
@@ -3217,20 +2581,14 @@ let toastTimer;
 function showToast(msg){
 
   const t =
-    document.getElementById(
-      "toast"
-    );
-
+    document.getElementById("toast");
 
   document.getElementById(
     "toastText"
-  ).textContent =
-    msg;
+  ).textContent = msg;
 
 
-  t.classList.add(
-    "show"
-  );
+  t.classList.add("show");
 
 
   clearTimeout(
@@ -3240,19 +2598,16 @@ function showToast(msg){
 
   toastTimer =
     setTimeout(
-      () =>
-        t.classList.remove(
-          "show"
-        ),
+      () => t.classList.remove("show"),
       2800
     );
 
 }
 
 
-/* =========================================================
+/* =================================
    COUNTERS
-========================================================= */
+================================= */
 
 function animateNumbers(){
 
@@ -3260,54 +2615,44 @@ function animateNumbers(){
     .querySelectorAll(
       "[data-number]"
     )
-    .forEach(
-      el => {
+    .forEach(el => {
 
-        const target =
-          +el.dataset.number;
+      const target =
+        +el.dataset.number;
 
-
-        let v = 0;
+      let v = 0;
 
 
-        const t =
-          setInterval(
-            () => {
+      const t =
+        setInterval(() => {
 
-              v +=
-                Math.max(
-                  1,
-                  Math.ceil(
-                    target/35
-                  )
-                );
-
-
-              if(v >= target){
-
-                v = target;
-
-                clearInterval(t);
-
-              }
-
-
-              el.textContent =
-                v;
-
-            },
-            28
+          v += Math.max(
+            1,
+            Math.ceil(target/35)
           );
 
-      }
-    );
+
+          if(v >= target){
+
+            v = target;
+
+            clearInterval(t);
+
+          }
+
+
+          el.textContent = v;
+
+        },28);
+
+    });
 
 }
 
 
-/* =========================================================
+/* =================================
    NOTIFICATIONS
-========================================================= */
+================================= */
 
 const notices = [
 
@@ -3325,52 +2670,42 @@ const notices = [
 let ni = 0;
 
 
-setInterval(
-  () => {
+setInterval(() => {
 
-    ni =
-      (ni + 1) %
-      notices.length;
-
-
-    const el =
-      document.getElementById(
-        "noticeText"
-      );
+  ni =
+    (ni+1) %
+    notices.length;
 
 
-    el.style.opacity =
-      "0";
-
-
-    setTimeout(
-      () => {
-
-        el.textContent =
-          notices[ni];
-
-        el.style.opacity =
-          "1";
-
-      },
-      180
+  const el =
+    document.getElementById(
+      "noticeText"
     );
 
-  },
-  4500
-);
+
+  el.style.opacity = "0";
 
 
-/* =========================================================
+  setTimeout(() => {
+
+    el.textContent =
+      notices[ni];
+
+    el.style.opacity = "1";
+
+  },180);
+
+},4500);
+
+
+/* =================================
    STORE SCROLL
-========================================================= */
+================================= */
 
 function goStore(){
 
   document
-    .getElementById(
-      "store"
-    )
+    .getElementById("store")
     .scrollIntoView({
       behavior:"smooth",
       block:"start"
@@ -3379,9 +2714,9 @@ function goStore(){
 }
 
 
-/* =========================================================
+/* =================================
    KEYBOARD SEARCH
-========================================================= */
+================================= */
 
 document.addEventListener(
   "keydown",
@@ -3399,9 +2734,7 @@ document.addEventListener(
     }
 
 
-    if(
-      e.key === "Escape"
-    ){
+    if(e.key === "Escape"){
 
       search.value = "";
 
@@ -3415,9 +2748,9 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   STARTUP TOAST
-========================================================= */
+/* =================================
+   START TOAST
+================================= */
 
 setTimeout(
   () =>
